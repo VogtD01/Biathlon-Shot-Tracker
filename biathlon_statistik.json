@@ -1,0 +1,51 @@
+[
+    {
+        "Datum": "2024-11-13",
+        "Statistik": [
+            {
+                "Datum": "2024-11-13",
+                "Disziplin": "Sprint",
+                "Fehler": {
+                    "Liegend": 1,
+                    "Stehend": 0
+                },
+                "Trefferquoten": {
+                    "Gesamt": 90.0,
+                    "Liegend": 80.0,
+                    "Stehend": 100.0
+                }
+            }
+        ]
+    },
+    {
+        "Datum": "2024-11-14",
+        "Statistik": [
+            {
+                "Datum": "2024-11-14",
+                "Disziplin": "Massenstart",
+                "Fehler": {
+                    "Liegend": 0,
+                    "Stehend": 2
+                },
+                "Trefferquoten": {
+                    "Gesamt": 90.0,
+                    "Liegend": 100.0,
+                    "Stehend": 80.0
+                }
+            },
+            {
+                "Datum": "2024-11-14",
+                "Disziplin": "Verfolgung",
+                "Fehler": {
+                    "Liegend": 2,
+                    "Stehend": 3
+                },
+                "Trefferquoten": {
+                    "Gesamt": 75.0,
+                    "Liegend": 80.0,
+                    "Stehend": 70.0
+                }
+            }
+        ]
+    }
+]
