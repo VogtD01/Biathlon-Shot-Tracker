@@ -1,0 +1,37 @@
+TNS = Technik Nahes schießen
+K = Komplex (Mit belastung)
+GLS = Grundlagenschißen
+
+wenn Komplex ausgewählt:
+Komplex Skating  -> Rollski oder Langlauf
+Komplex Klassisch  -> Rollski oder Langlauf
+Lauf Komplex 
+Rad Komplex
+Kraftzirkel Komplex
+
+
+Trainingsintesitäten:
+
+Wettkampf   -> alle schießen mit i5 abspeichern
+Traingswettkampf  -> alle schießen mit i5 abspeichern
+
+
+Gundlagenausdauer -> alle schießen mit i1-2 abspeichern
+Schwellentraining  -> alle schießen mit i3-4 abspeichern
+Intervalltraining  -> alle schießen mit i5 abspeichern
+
+oder Bereiche 
+i1-2
+i3
+i4
+i5
+=> kann theoretisch noch für jedes schießen einzeln angepasst werden
+
+
+-> wetter mit angeben
+Auswahl: windstill, windig, stürmisch,
+-> Uhrzeit
+
+wenn GLS:
+
+wenn TNS:
