@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 import json
 import hashlib
 import profile_page
+from page1 import page1
 
 # Main app
 def app():
@@ -17,6 +18,7 @@ def app():
     if selected == 'Input Data':
         st.title("Input Data")
         st.write("This is the input data page.")
+        page1() 
     elif selected == 'Statistics/Graphs':
         st.title("Statistics/Graphs")
         st.write("This is the statistics/graphs page.")

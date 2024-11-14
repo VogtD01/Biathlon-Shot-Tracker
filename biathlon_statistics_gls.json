@@ -1,0 +1,42 @@
+[
+    {
+        "Date": "2024-11-14",
+        "Mode": "Training",
+        "Trainings_mode": "GLS",
+        "Wind Conditions": "Calm",
+        "Prone Shooting Summary": {
+            "Total Shots": 40,
+            "Total Errors": 2,
+            "Total Outliers": 5,
+            "Hit Rate": 95.0,
+            "Outlier + Error Rate": 82.5
+        },
+        "Standing Shooting Summary": {
+            "Total Shots": 40,
+            "Total Errors": 3,
+            "Total Below Ring 7": 5,
+            "Hit Rate": 92.5,
+            "Below Ring 7 + Error Rate": 80.0
+        }
+    },
+    {
+        "Date": "2024-11-14",
+        "Mode": "Training",
+        "Trainings_mode": "GLS",
+        "Wind Conditions": "Calm",
+        "Prone Shooting Summary": {
+            "Total Shots": 30,
+            "Total Errors": 3,
+            "Total Outliers": 1,
+            "Hit Rate": 90.0,
+            "Outlier + Error Rate": 86.67
+        },
+        "Standing Shooting Summary": {
+            "Total Shots": 30,
+            "Total Errors": 3,
+            "Total Below Ring 7": 2,
+            "Hit Rate": 90.0,
+            "Below Ring 7 + Error Rate": 83.33
+        }
+    }
+]

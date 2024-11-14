@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 
-def biathlon_statistics(date, mode):
+def biathlon_stats_komplex(date, mode, training_mode):
     
     # Windbedingungen Auswahl
         wind_conditions = st.selectbox("Select the wind conditions:", ["Calm", "Light Wind", "Windy", "Stormy"])
@@ -133,7 +133,7 @@ def biathlon_statistics(date, mode):
             statistics.append({
                 "Date": date.strftime("%Y-%m-%d"),
                 "Mode": mode,
-                "Trainings_mode": "Komplex",
+                "Trainings_mode": training_mode,
                 "Wind Conditions": wind_conditions,
                 "Daily Summary": {
                     "Total Shots": total_shots,
@@ -150,3 +150,90 @@ def biathlon_statistics(date, mode):
                 json.dump(statistics, file, indent=4)
 
             st.success("Hit rate and data were saved successfully.")
+
+
+
+def biathlon_stats_gls(date, mode, training_mode):
+    st.write("GLS mode selected.")
+
+    # Windbedingungen Auswahl
+    wind_conditions = st.selectbox("Select the wind conditions:", ["Calm", "Light Wind", "Windy", "Stormy"])
+
+    cols = st.columns(3)
+    total_shots = cols[0].number_input("Enter the total number of shots (prone):", min_value=0, step=1)
+    total_errors = cols[1].number_input("Enter the total number of errors (prone):", min_value=0, step=1)
+    total_outliers = cols[2].number_input("Enter the total number of outliers (prone):", min_value=0, step=1)
+
+    if total_shots > 0:
+        # Berechnung der Trefferleistung
+        hit_rate = ((total_shots - total_errors) / total_shots) * 100
+
+        # Berechnung des Prozentsatzes der Außreiser
+        outlier_rate = ((total_shots - (total_errors + total_outliers)) / total_shots) * 100
+    else:
+        hit_rate = outlier_rate = 0
+
+    # Ausgabe der Ergebnisse
+    st.write(f"**Prone Shooting Summary:**")
+    col1, col2 = st.columns(2)
+    col1.write(f"Hit rate: {round(hit_rate, 2)}%")
+    col2.write(f"Outlier + error rate: {round(outlier_rate, 2)}%")
+
+    cols = st.columns(3)
+    total_shots_standing = cols[0].number_input("Enter the total number of shots (standing):", min_value=0, step=1)
+    total_errors_standing = cols[1].number_input("Enter the total number of errors (standing):", min_value=0, step=1)
+    total_below_ring7 = cols[2].number_input("Enter the total number of shots below Ring 7 (standing):", min_value=0, step=1)
+
+    if total_shots_standing > 0:
+        # Berechnung der Trefferleistung
+        hit_rate_standing = ((total_shots_standing - total_errors_standing) / total_shots_standing) * 100
+
+        # Berechnung des Prozentsatzes der Schüsse schlechter als Ring 7
+        below_ring7_rate = ((total_shots_standing - (total_errors_standing + total_below_ring7)) / total_shots_standing) * 100
+    else:
+        hit_rate_standing = below_ring7_rate = 0
+
+    # Ausgabe der Ergebnisse
+    st.write(f"**Standing Shooting Summary:**")
+    col1, col2 = st.columns(2)
+    col1.write(f"Hit rate: {round(hit_rate_standing, 2)}%")
+    col2.write(f"Below Ring 7 + error rate: {round(below_ring7_rate, 2)}%")
+
+
+    # JSON-Datei laden oder initialisieren, falls nicht vorhanden
+    if st.button("Save all data"):
+        if os.path.exists("biathlon_statistics_gls.json") and os.path.getsize("biathlon_statistics_gls.json") > 0:
+            with open("biathlon_statistics_gls.json", "r") as file:
+                try:
+                    statistics = json.load(file)
+                except json.JSONDecodeError:
+                    statistics = []
+        else:
+            statistics = []
+
+        # Speichern der neuen Daten
+        statistics.append({
+            "Date": date.strftime("%Y-%m-%d"),
+            "Mode": mode,
+            "Trainings_mode": training_mode,
+            "Wind Conditions": wind_conditions,
+            "Prone Shooting Summary": {
+                "Total Shots": total_shots,
+                "Total Errors": total_errors,
+                "Total Outliers": total_outliers,
+                "Hit Rate": round(hit_rate, 2),
+                "Outlier + Error Rate": round(outlier_rate, 2)
+            },
+            "Standing Shooting Summary": {
+                "Total Shots": total_shots_standing,
+                "Total Errors": total_errors_standing,
+                "Total Below Ring 7": total_below_ring7,
+                "Hit Rate": round(hit_rate_standing, 2),
+                "Below Ring 7 + Error Rate": round(below_ring7_rate, 2)
+            }
+        })
+
+        with open("biathlon_statistics_gls.json", "w") as file:
+            json.dump(statistics, file, indent=4)
+
+        st.success("Hit rate and data were saved successfully.")
