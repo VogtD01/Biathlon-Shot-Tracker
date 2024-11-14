@@ -47,5 +47,23 @@
                 }
             }
         ]
+    },
+    {
+        "Datum": "2024-11-14",
+        "Statistik": [
+            {
+                "Datum": "2024-11-14",
+                "Disziplin": "Sprint",
+                "Fehler": {
+                    "Liegend": 2,
+                    "Stehend": 2
+                },
+                "Trefferquoten": {
+                    "Gesamt": 60.0,
+                    "Liegend": 60.0,
+                    "Stehend": 60.0
+                }
+            }
+        ]
     }
 ]
