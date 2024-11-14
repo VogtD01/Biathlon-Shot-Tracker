@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import hashlib
+import os
 
 # Function to load user data
 def load_users():
@@ -32,7 +33,11 @@ def profile_page():
     col1, col2 = st.columns([1, 2])
 
     with col1:
-        st.image("FS.jpg", width=150)  # Replace with the path to the user's image
+         image_path = f"images/{user['email']}.jpg"
+         if os.path.exists(image_path):
+            st.image(image_path, width=150)
+         else:
+            st.image("images/default.jpg", width=150)
 
     with col2:
         st.write(f"**First Name:** {user['first_name']}")
@@ -51,6 +56,7 @@ def profile_page():
         email = st.text_input("Email", value=user['email'])
         password = st.text_input("Password", type="password")
         confirm_password = st.text_input("Confirm Password", type="password")
+        uploaded_file = st.file_uploader("Upload a new profile picture", type=["jpg", "jpeg", "png"])
 
         if st.button("Update Profile"):
             if not first_name or not last_name or not email:
@@ -78,6 +84,9 @@ def profile_page():
                     "email": email,
                     "password": user['password'] if not password else hash_password(password)
                 }
+                if uploaded_file is not None:
+                    with open(f"images/{email}.jpg", "wb") as f:
+                        f.write(uploaded_file.getbuffer())
                 st.success("Profile updated successfully!")
 
     st.write(f"Logged in as: {user['email']}")
