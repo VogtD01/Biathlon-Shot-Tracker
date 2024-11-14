@@ -3,117 +3,117 @@ import json
 from datetime import datetime
 import os
 
-# Titel
-st.title("Biathlon Trefferquote Berechnung und Speicherung")
+# Title
+st.title("Biathlon Hit Rate Calculation and Storage")
 
-# Datumseingabe
-datum = st.date_input("Datum des Wettkampfs")
+# Date input
+date = st.date_input("Date of the Competition")
 
-# Auswahl der Disziplin(en)
-disziplinen = st.multiselect(
-    "Wähle die Disziplin(en):",
-    ["Sprint", "Einzel", "Massenstart", "Verfolgung"]
+# Selection of the discipline(s)
+disciplines = st.multiselect(
+    "Select the discipline(s):",
+    ["Sprint", "Individual", "Mass Start", "Pursuit"]
 )
 
-# JSON-Liste für das aktuelle Datum
-gesamte_statistik = []
+# JSON list for the current date
+complete_statistics = []
 
-# Eingabe und Berechnung für jede ausgewählte Disziplin
-for disziplin in disziplinen:
-    st.subheader(f"Eingaben für {disziplin}")
+# Input and calculation for each selected discipline
+for discipline in disciplines:
+    st.subheader(f"Inputs for {discipline}")
 
-    if disziplin == "Sprint":
-        fehler1 = st.number_input("Fehler im 1. Schießen (liegend) - Sprint:", min_value=0, max_value=5, step=1, key=f"fehler1_{disziplin}")
-        fehler2 = st.number_input("Fehler im 2. Schießen (stehend) - Sprint:", min_value=0, max_value=5, step=1, key=f"fehler2_{disziplin}")
+    if discipline == "Sprint":
+        error1 = st.number_input("Errors in the 1st Shooting (prone) - Sprint:", min_value=0, max_value=5, step=1, key=f"error1_{discipline}")
+        error2 = st.number_input("Errors in the 2nd Shooting (standing) - Sprint:", min_value=0, max_value=5, step=1, key=f"error2_{discipline}")
         
-        gesamt_schuesse = 10
-        liegend_fehler = fehler1
-        stehend_fehler = fehler2
-        liegend_treffer = 5 - liegend_fehler
-        stehend_treffer = 5 - stehend_fehler
-        gesamttreffer = liegend_treffer + stehend_treffer
+        total_shots = 10
+        prone_errors = error1
+        standing_errors = error2
+        prone_hits = 5 - prone_errors
+        standing_hits = 5 - standing_errors
+        total_hits = prone_hits + standing_hits
 
-    elif disziplin == "Einzel":
-        fehler1 = st.number_input("Fehler im 1. Schießen (liegend) - Einzel:", min_value=0, max_value=5, step=1, key=f"fehler1_{disziplin}")
-        fehler2 = st.number_input("Fehler im 2. Schießen (stehend) - Einzel:", min_value=0, max_value=5, step=1, key=f"fehler2_{disziplin}")
-        fehler3 = st.number_input("Fehler im 3. Schießen (liegend) - Einzel:", min_value=0, max_value=5, step=1, key=f"fehler3_{disziplin}")
-        fehler4 = st.number_input("Fehler im 4. Schießen (stehend) - Einzel:", min_value=0, max_value=5, step=1, key=f"fehler4_{disziplin}")
+    elif discipline == "Individual":
+        error1 = st.number_input("Errors in the 1st Shooting (prone) - Individual:", min_value=0, max_value=5, step=1, key=f"error1_{discipline}")
+        error2 = st.number_input("Errors in the 2nd Shooting (standing) - Individual:", min_value=0, max_value=5, step=1, key=f"error2_{discipline}")
+        error3 = st.number_input("Errors in the 3rd Shooting (prone) - Individual:", min_value=0, max_value=5, step=1, key=f"error3_{discipline}")
+        error4 = st.number_input("Errors in the 4th Shooting (standing) - Individual:", min_value=0, max_value=5, step=1, key=f"error4_{discipline}")
 
-        gesamt_schuesse = 20
-        liegend_fehler = fehler1 + fehler3
-        stehend_fehler = fehler2 + fehler4
-        liegend_treffer = 10 - liegend_fehler
-        stehend_treffer = 10 - stehend_fehler
-        gesamttreffer = liegend_treffer + stehend_treffer
+        total_shots = 20
+        prone_errors = error1 + error3
+        standing_errors = error2 + error4
+        prone_hits = 10 - prone_errors
+        standing_hits = 10 - standing_errors
+        total_hits = prone_hits + standing_hits
 
-    elif disziplin == "Massenstart":
-        fehler1 = st.number_input("Fehler im 1. Schießen (liegend) - Massenstart:", min_value=0, max_value=5, step=1, key=f"fehler1_{disziplin}")
-        fehler2 = st.number_input("Fehler im 2. Schießen (liegend) - Massenstart:", min_value=0, max_value=5, step=1, key=f"fehler2_{disziplin}")
-        fehler3 = st.number_input("Fehler im 3. Schießen (stehend) - Massenstart:", min_value=0, max_value=5, step=1, key=f"fehler3_{disziplin}")
-        fehler4 = st.number_input("Fehler im 4. Schießen (stehend) - Massenstart:", min_value=0, max_value=5, step=1, key=f"fehler4_{disziplin}")
+    elif discipline == "Mass Start":
+        error1 = st.number_input("Errors in the 1st Shooting (prone) - Mass Start:", min_value=0, max_value=5, step=1, key=f"error1_{discipline}")
+        error2 = st.number_input("Errors in the 2nd Shooting (prone) - Mass Start:", min_value=0, max_value=5, step=1, key=f"error2_{discipline}")
+        error3 = st.number_input("Errors in the 3rd Shooting (standing) - Mass Start:", min_value=0, max_value=5, step=1, key=f"error3_{discipline}")
+        error4 = st.number_input("Errors in the 4th Shooting (standing) - Mass Start:", min_value=0, max_value=5, step=1, key=f"error4_{discipline}")
 
-        gesamt_schuesse = 20
-        liegend_fehler = fehler1 + fehler2
-        stehend_fehler = fehler3 + fehler4
-        liegend_treffer = 10 - liegend_fehler
-        stehend_treffer = 10 - stehend_fehler
-        gesamttreffer = liegend_treffer + stehend_treffer
+        total_shots = 20
+        prone_errors = error1 + error2
+        standing_errors = error3 + error4
+        prone_hits = 10 - prone_errors
+        standing_hits = 10 - standing_errors
+        total_hits = prone_hits + standing_hits
 
-    elif disziplin == "Verfolgung":
-        fehler1 = st.number_input("Fehler im 1. Schießen (liegend) - Verfolgung:", min_value=0, max_value=5, step=1, key=f"fehler1_{disziplin}")
-        fehler2 = st.number_input("Fehler im 2. Schießen (liegend) - Verfolgung:", min_value=0, max_value=5, step=1, key=f"fehler2_{disziplin}")
-        fehler3 = st.number_input("Fehler im 3. Schießen (stehend) - Verfolgung:", min_value=0, max_value=5, step=1, key=f"fehler3_{disziplin}")
-        fehler4 = st.number_input("Fehler im 4. Schießen (stehend) - Verfolgung:", min_value=0, max_value=5, step=1, key=f"fehler4_{disziplin}")
+    elif discipline == "Pursuit":
+        error1 = st.number_input("Errors in the 1st Shooting (prone) - Pursuit:", min_value=0, max_value=5, step=1, key=f"error1_{discipline}")
+        error2 = st.number_input("Errors in the 2nd Shooting (prone) - Pursuit:", min_value=0, max_value=5, step=1, key=f"error2_{discipline}")
+        error3 = st.number_input("Errors in the 3rd Shooting (standing) - Pursuit:", min_value=0, max_value=5, step=1, key=f"error3_{discipline}")
+        error4 = st.number_input("Errors in the 4th Shooting (standing) - Pursuit:", min_value=0, max_value=5, step=1, key=f"error4_{discipline}")
 
-        gesamt_schuesse = 20
-        liegend_fehler = fehler1 + fehler2
-        stehend_fehler = fehler3 + fehler4
-        liegend_treffer = 10 - liegend_fehler
-        stehend_treffer = 10 - stehend_fehler
-        gesamttreffer = liegend_treffer + stehend_treffer
+        total_shots = 20
+        prone_errors = error1 + error2
+        standing_errors = error3 + error4
+        prone_hits = 10 - prone_errors
+        standing_hits = 10 - standing_errors
+        total_hits = prone_hits + standing_hits
 
-    liegend_trefferquote = (liegend_treffer / (gesamt_schuesse / 2)) * 100
-    stehend_trefferquote = (stehend_treffer / (gesamt_schuesse / 2)) * 100
-    gesamttrefferquote = (gesamttreffer / gesamt_schuesse) * 100
+    prone_hit_rate = (prone_hits / (total_shots / 2)) * 100
+    standing_hit_rate = (standing_hits / (total_shots / 2)) * 100
+    total_hit_rate = (total_hits / total_shots) * 100
 
-    st.write(f"**Ergebnisse für {disziplin}:**")
-    st.write("Die Gesamttrefferquote beträgt:", round(gesamttrefferquote, 2), "%")
-    st.write("Trefferquote liegend:", round(liegend_trefferquote, 2), "%")
-    st.write("Trefferquote stehend:", round(stehend_trefferquote, 2), "%")
+    st.write(f"**Results for {discipline}:**")
+    st.write("The total hit rate is:", round(total_hit_rate, 2), "%")
+    st.write("Prone hit rate:", round(prone_hit_rate, 2), "%")
+    st.write("Standing hit rate:", round(standing_hit_rate, 2), "%")
 
-    daten = {
-        "Datum": datum.strftime("%Y-%m-%d"),
-        "Disziplin": disziplin,
-        "Fehler": {
-            "Liegend": liegend_fehler,
-            "Stehend": stehend_fehler
+    data = {
+        "Date": date.strftime("%Y-%m-%d"),
+        "Discipline": discipline,
+        "Errors": {
+            "Prone": prone_errors,
+            "Standing": standing_errors
         },
-        "Trefferquoten": {
-            "Gesamt": round(gesamttrefferquote, 2),
-            "Liegend": round(liegend_trefferquote, 2),
-            "Stehend": round(stehend_trefferquote, 2),
+        "Hit Rates": {
+            "Total": round(total_hit_rate, 2),
+            "Prone": round(prone_hit_rate, 2),
+            "Standing": round(standing_hit_rate, 2),
         }
     }
 
-    gesamte_statistik.append(daten)
+    complete_statistics.append(data)
 
-# JSON-Datei laden und initialisieren, falls sie nicht existiert oder leer ist
-if st.button("Speichere alle Daten"):
-    if os.path.exists("biathlon_statistik.json") and os.path.getsize("biathlon_statistik.json") > 0:
-        with open("biathlon_statistik.json", "r") as file:
+# Load JSON file and initialize if it does not exist or is empty
+if st.button("Save all data"):
+    if os.path.exists("biathlon_statistics.json") and os.path.getsize("biathlon_statistics.json") > 0:
+        with open("biathlon_statistics.json", "r") as file:
             try:
-                statistik = json.load(file)
+                statistics = json.load(file)
             except json.JSONDecodeError:
-                statistik = []
+                statistics = []
     else:
-        statistik = []
+        statistics = []
 
-    statistik.append({
-        "Datum": datum.strftime("%Y-%m-%d"),
-        "Statistik": gesamte_statistik
+    statistics.append({
+        "Date": date.strftime("%Y-%m-%d"),
+        "Statistics": complete_statistics
     })
 
-    with open("biathlon_statistik.json", "w") as file:
-        json.dump(statistik, file, indent=4)
+    with open("biathlon_statistics.json", "w") as file:
+        json.dump(statistics, file, indent=4)
 
-    st.success("Die Trefferquote und Daten wurden erfolgreich gespeichert.")
+    st.success("Hit rate and data were saved successfully.")
