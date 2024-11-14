@@ -1,0 +1,89 @@
+[
+    {
+        "Date": "2024-11-14",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 0,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 100.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-15",
+        "Mode": "Competition",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 1,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 85.0,
+            "Prone Hit Rate": 90.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Pursuit",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 90.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-16",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 0,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 100.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 100.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 100.0,
+                    "Prone": 100.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    }
+]
