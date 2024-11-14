@@ -171,7 +171,9 @@ else:
         biathlon_statistics(date, mode)
     elif training_mode == "TNS":
         st.write("TNS mode selected.")
+
+        
     else:
         st.write("GLS mode selected.")
-        
+         #chris GLS Code
 

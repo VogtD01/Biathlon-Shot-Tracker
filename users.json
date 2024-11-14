@@ -16,5 +16,14 @@
         "height": 180,
         "weight": 75,
         "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    },
+    {
+        "first_name": "Dominic",
+        "last_name": "Vogt",
+        "email": "vd6806@mci4me.at",
+        "gender": "Male",
+        "height": 188,
+        "weight": 77,
+        "password": "1bd2f6efec083a3a192288c204c8b14f66911f32dfc9a9f6d9a81119ce57965a"
     }
 ]

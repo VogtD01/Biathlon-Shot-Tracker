@@ -1,0 +1,20 @@
+[
+    {
+        "Date": "2024-11-14",
+        "Errors": {
+            "Shooting 1 (prone)": 1,
+            "Shooting 2 (standing)": 1,
+            "Shooting 3 (prone)": 1,
+            "Shooting 4 (standing)": 0,
+            "Shooting 5 (prone)": 1,
+            "Shooting 6 (standing)": 0,
+            "Shooting 7 (prone)": 1,
+            "Shooting 8 (standing)": 0
+        },
+        "Hit Rates": {
+            "Total": 87.5,
+            "Prone": 80.0,
+            "Standing": 95.0
+        }
+    }
+]
