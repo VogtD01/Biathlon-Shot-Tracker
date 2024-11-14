@@ -2,7 +2,7 @@ import streamlit as st
 import json
 from datetime import datetime
 import os
-from funktions import biathlon_statistics
+from functions import biathlon_statistics
 
 # Titel
 st.title("Biathlon Hit Rate Calculation and Storage")

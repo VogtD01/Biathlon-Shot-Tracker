@@ -22,8 +22,8 @@ def app():
     elif selected == 'Profile':
         st.title("Profile")
         st.write("This is the profile page.")
-        st.write(f"Logged in as: {st.session_state.user['email']}")
 
+        
 # Function to hash passwords
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
