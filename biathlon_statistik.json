@@ -1,67 +1,67 @@
 [
     {
-        "Datum": "2024-11-13",
-        "Statistik": [
+        "Date": "2024-11-13",
+        "Statistics": [
             {
-                "Datum": "2024-11-13",
-                "Disziplin": "Sprint",
-                "Fehler": {
-                    "Liegend": 1,
-                    "Stehend": 0
+                "Date": "2024-11-13",
+                "Discipline": "Sprint",
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 0
                 },
-                "Trefferquoten": {
-                    "Gesamt": 90.0,
-                    "Liegend": 80.0,
-                    "Stehend": 100.0
+                "HitRates": {
+                    "Overall": 90.0,
+                    "Prone": 80.0,
+                    "Standing": 100.0
                 }
             }
         ]
     },
     {
-        "Datum": "2024-11-14",
-        "Statistik": [
+        "Date": "2024-11-14",
+        "Statistics": [
             {
-                "Datum": "2024-11-14",
-                "Disziplin": "Massenstart",
-                "Fehler": {
-                    "Liegend": 0,
-                    "Stehend": 2
+                "Date": "2024-11-14",
+                "Discipline": "Massenstart",
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
                 },
-                "Trefferquoten": {
-                    "Gesamt": 90.0,
-                    "Liegend": 100.0,
-                    "Stehend": 80.0
+                "HitRates": {
+                    "Overall": 90.0,
+                    "Prone": 100.0,
+                    "Standing": 80.0
                 }
             },
             {
-                "Datum": "2024-11-14",
-                "Disziplin": "Verfolgung",
-                "Fehler": {
-                    "Liegend": 2,
-                    "Stehend": 3
+                "Date": "2024-11-14",
+                "Discipline": "Verfolgung",
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 3
                 },
-                "Trefferquoten": {
-                    "Gesamt": 75.0,
-                    "Liegend": 80.0,
-                    "Stehend": 70.0
+                "HitRates": {
+                    "Overall": 75.0,
+                    "Prone": 80.0,
+                    "Standing": 70.0
                 }
             }
         ]
     },
     {
-        "Datum": "2024-11-14",
-        "Statistik": [
+        "Date": "2024-11-14",
+        "Statistics": [
             {
-                "Datum": "2024-11-14",
-                "Disziplin": "Sprint",
-                "Fehler": {
-                    "Liegend": 2,
-                    "Stehend": 2
+                "Date": "2024-11-14",
+                "Discipline": "Sprint",
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 2
                 },
-                "Trefferquoten": {
-                    "Gesamt": 60.0,
-                    "Liegend": 60.0,
-                    "Stehend": 60.0
+                "HitRates": {
+                    "Overall": 60.0,
+                    "Prone": 60.0,
+                    "Standing": 60.0
                 }
             }
         ]

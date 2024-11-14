@@ -2,75 +2,75 @@ import streamlit as st
 import json
 from datetime import datetime
 
-# Titel
-st.title("Biathlon Trefferquote Berechnung und Speicherung")
+# Title
+st.title("Biathlon Hit Rate Calculation and Storage")
 
-# Datumseingabe
-datum = st.date_input("Datum des Wettkampfs")
+# Date input
+date = st.date_input("Date of the competition")
 
-# Eingabefelder für die Anzahl der Fehler bei acht Schießen (abwechselnd liegend und stehend)
-fehler1 = st.number_input("Fehler im 1. Schießen (liegend):", min_value=0, max_value=5, step=1)
-fehler2 = st.number_input("Fehler im 2. Schießen (stehend):", min_value=0, max_value=5, step=1)
-fehler3 = st.number_input("Fehler im 3. Schießen (liegend):", min_value=0, max_value=5, step=1)
-fehler4 = st.number_input("Fehler im 4. Schießen (stehend):", min_value=0, max_value=5, step=1)
-fehler5 = st.number_input("Fehler im 5. Schießen (liegend):", min_value=0, max_value=5, step=1)
-fehler6 = st.number_input("Fehler im 6. Schießen (stehend):", min_value=0, max_value=5, step=1)
-fehler7 = st.number_input("Fehler im 7. Schießen (liegend):", min_value=0, max_value=5, step=1)
-fehler8 = st.number_input("Fehler im 8. Schießen (stehend):", min_value=0, max_value=5, step=1)
+# Input fields for the number of errors in eight shootings (alternating prone and standing)
+error1 = st.number_input("Errors in 1st shooting (prone):", min_value=0, max_value=5, step=1)
+error2 = st.number_input("Errors in 2nd shooting (standing):", min_value=0, max_value=5, step=1)
+error3 = st.number_input("Errors in 3rd shooting (prone):", min_value=0, max_value=5, step=1)
+error4 = st.number_input("Errors in 4th shooting (standing):", min_value=0, max_value=5, step=1)
+error5 = st.number_input("Errors in 5th shooting (prone):", min_value=0, max_value=5, step=1)
+error6 = st.number_input("Errors in 6th shooting (standing):", min_value=0, max_value=5, step=1)
+error7 = st.number_input("Errors in 7th shooting (prone):", min_value=0, max_value=5, step=1)
+error8 = st.number_input("Errors in 8th shooting (standing):", min_value=0, max_value=5, step=1)
 
-# Button zur Berechnung
-if st.button("Berechne und speichere Trefferquote"):
-    # Gesamtanzahl an Schüssen und Fehlschüssen berechnen
-    gesamt_schuesse = 40  # 8 Schießen * 5 Schüsse pro Schießen
-    liegend_fehler = fehler1 + fehler3 + fehler5 + fehler7
-    stehend_fehler = fehler2 + fehler4 + fehler6 + fehler8
+# Button for calculation
+if st.button("Calculate and save hit rate"):
+    # Calculate total number of shots and misses
+    total_shots = 40  # 8 shootings * 5 shots per shooting
+    prone_errors = error1 + error3 + error5 + error7
+    standing_errors = error2 + error4 + error6 + error8
     
-    # Treffer berechnen
-    liegend_treffer = (20 - liegend_fehler)  # 4 liegende Schießen * 5 Schüsse
-    stehend_treffer = (20 - stehend_fehler)  # 4 stehende Schießen * 5 Schüsse
-    gesamttreffer = liegend_treffer + stehend_treffer
+    # Calculate hits
+    prone_hits = (20 - prone_errors)  # 4 prone shootings * 5 shots
+    standing_hits = (20 - standing_errors)  # 4 standing shootings * 5 shots
+    total_hits = prone_hits + standing_hits
     
-    # Trefferquote berechnen
-    liegend_trefferquote = (liegend_treffer / 20) * 100
-    stehend_trefferquote = (stehend_treffer / 20) * 100
-    gesamttrefferquote = (gesamttreffer / gesamt_schuesse) * 100
+    # Calculate hit rate
+    prone_hit_rate = (prone_hits / 20) * 100
+    standing_hit_rate = (standing_hits / 20) * 100
+    total_hit_rate = (total_hits / total_shots) * 100
     
-    # Ergebnisse anzeigen
-    st.write("Die Gesamttrefferquote beträgt:", round(gesamttrefferquote, 2), "%")
-    st.write("Trefferquote liegend:", round(liegend_trefferquote, 2), "%")
-    st.write("Trefferquote stehend:", round(stehend_trefferquote, 2), "%")
+    # Display results
+    st.write("The total hit rate is:", round(total_hit_rate, 2), "%")
+    st.write("Hit rate prone:", round(prone_hit_rate, 2), "%")
+    st.write("Hit rate standing:", round(standing_hit_rate, 2), "%")
     
-    # Daten in einem Dictionary speichern
-    daten = {
-        "Datum": datum.strftime("%Y-%m-%d"),
-        "Fehler": {
-            "Schießen 1 (liegend)": fehler1,
-            "Schießen 2 (stehend)": fehler2,
-            "Schießen 3 (liegend)": fehler3,
-            "Schießen 4 (stehend)": fehler4,
-            "Schießen 5 (liegend)": fehler5,
-            "Schießen 6 (stehend)": fehler6,
-            "Schießen 7 (liegend)": fehler7,
-            "Schießen 8 (stehend)": fehler8,
+    # Save data in a dictionary
+    data = {
+        "Date": date.strftime("%Y-%m-%d"),
+        "Errors": {
+            "Shooting 1 (prone)": error1,
+            "Shooting 2 (standing)": error2,
+            "Shooting 3 (prone)": error3,
+            "Shooting 4 (standing)": error4,
+            "Shooting 5 (prone)": error5,
+            "Shooting 6 (standing)": error6,
+            "Shooting 7 (prone)": error7,
+            "Shooting 8 (standing)": error8,
         },
-        "Trefferquoten": {
-            "Gesamt": round(gesamttrefferquote, 2),
-            "Liegend": round(liegend_trefferquote, 2),
-            "Stehend": round(stehend_trefferquote, 2),
+        "Hit Rates": {
+            "Total": round(total_hit_rate, 2),
+            "Prone": round(prone_hit_rate, 2),
+            "Standing": round(standing_hit_rate, 2),
         }
     }
     
-    # JSON-Datei laden und Daten anhängen
+    # Load JSON file and append data
     try:
-        with open("biathlon_statistik.json", "r") as file:
-            statistik = json.load(file)
+        with open("biathlon_statistics.json", "r") as file:
+            statistics = json.load(file)
     except FileNotFoundError:
-        statistik = []
+        statistics = []
         
-    statistik.append(daten)
+    statistics.append(data)
     
-    # Aktualisierte Daten in JSON-Datei speichern
-    with open("biathlon_statistik.json", "w") as file:
-        json.dump(statistik, file, indent=4)
+    # Save updated data in JSON file
+    with open("biathlon_statistics.json", "w") as file:
+        json.dump(statistics, file, indent=4)
     
-    st.success("Die Trefferquote und Daten wurden erfolgreich gespeichert.")
+    st.success("The hit rate and data were successfully saved.")
