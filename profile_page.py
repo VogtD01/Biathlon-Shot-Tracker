@@ -29,41 +29,60 @@ def profile_page():
 
     user = st.session_state.user
 
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        st.image("FS.jpg", width=150)  # Replace with the path to the user's image
+
+    with col2:
+        st.write(f"**First Name:** {user['first_name']}")
+        st.write(f"**Last Name:** {user['last_name']}")
+        st.write(f"**Gender:** {user.get('gender', 'Male')}")
+        st.write(f"**Height:** {user.get('height', 0)} cm")
+        st.write(f"**Weight:** {user.get('weight', 0)} kg")
+
+    with st.expander("Update Profile Information"):
+        st.subheader("Update Profile Information")
+
+        first_name = st.text_input("First Name", value=user['first_name'])
+        last_name = st.text_input("Last Name", value=user['last_name'])
+        height = st.number_input("Height (cm)", value=user.get('height', 0))
+        weight = st.number_input("Weight (kg)", value=user.get('weight', 0))
+        email = st.text_input("Email", value=user['email'])
+        password = st.text_input("Password", type="password")
+        confirm_password = st.text_input("Confirm Password", type="password")
+
+        if st.button("Update Profile"):
+            if not first_name or not last_name or not email:
+                st.error("All fields are required!")
+            elif password and password != confirm_password:
+                st.error("Passwords do not match!")
+            else:
+                users = load_users()
+                for u in users:
+                    if u['email'] == user['email']:
+                        u['first_name'] = first_name
+                        u['last_name'] = last_name
+                        u['height'] = height
+                        u['weight'] = weight
+                        u['email'] = email
+                        if password:
+                            u['password'] = hash_password(password)
+                        break
+                save_users(users)
+                st.session_state.user = {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "height": height,
+                    "weight": weight,
+                    "email": email,
+                    "password": user['password'] if not password else hash_password(password)
+                }
+                st.success("Profile updated successfully!")
+
     st.write(f"Logged in as: {user['email']}")
-
-    st.subheader("Update Profile Information")
-
-    first_name = st.text_input("First Name", value=user['first_name'])
-    last_name = st.text_input("Last Name", value=user['last_name'])
-    email = st.text_input("Email", value=user['email'])
-    password = st.text_input("Password", type="password")
-    confirm_password = st.text_input("Confirm Password", type="password")
-
-    if st.button("Update Profile"):
-        if not first_name or not last_name or not email:
-            st.error("All fields are required!")
-        elif password and password != confirm_password:
-            st.error("Passwords do not match!")
-        else:
-            users = load_users()
-            for u in users:
-                if u['email'] == user['email']:
-                    u['first_name'] = first_name
-                    u['last_name'] = last_name
-                    u['email'] = email
-                    if password:
-                        u['password'] = hash_password(password)
-                    break
-            save_users(users)
-            st.session_state.user = {
-                "first_name": first_name,
-                "last_name": last_name,
-                "email": email,
-                "password": user['password'] if not password else hash_password(password)
-            }
-            st.success("Profile updated successfully!")
 
     if st.button("Log Out"):
         st.session_state.logged_in = False
         st.session_state.user = None
-        st.experimental_rerun()
+        st.rerun()

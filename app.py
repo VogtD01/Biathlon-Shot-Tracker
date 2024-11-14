@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import json
 import hashlib
+import profile_page
 
 # Main app
 def app():
@@ -20,10 +21,9 @@ def app():
         st.title("Statistics/Graphs")
         st.write("This is the statistics/graphs page.")
     elif selected == 'Profile':
-        st.title("Profile")
-        st.write("This is the profile page.")
+        profile_page.profile_page()
 
-        
+
 # Function to hash passwords
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -79,6 +79,9 @@ def registration_page():
     first_name = st.text_input("First Name")
     last_name = st.text_input("Last Name")
     email = st.text_input("Email")
+    gender = st.selectbox("Gender", ["Male", "Female", "Other"])
+    height = st.number_input("Height (cm)", min_value=0)
+    weight = st.number_input("Weight (kg)", min_value=0)
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm Password", type="password")
 
@@ -97,6 +100,9 @@ def registration_page():
                     "first_name": first_name,
                     "last_name": last_name,
                     "email": email,
+                    "gender": gender,
+                    "height": height,
+                    "weight": weight,
                     "password": hashed_password
                 }
                 users.append(new_user)
