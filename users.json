@@ -25,5 +25,14 @@
         "height": 188,
         "weight": 77,
         "password": "1bd2f6efec083a3a192288c204c8b14f66911f32dfc9a9f6d9a81119ce57965a"
+    },
+    {
+        "first_name": "DV",
+        "last_name": "01",
+        "email": "dv",
+        "gender": "Male",
+        "height": 4,
+        "weight": 4,
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
     }
 ]

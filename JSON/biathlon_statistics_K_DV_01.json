@@ -1,0 +1,60 @@
+[
+    {
+        "Date": "2024-11-15",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Stormy",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 0,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 100.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-15",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Light Wind",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 3,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 75.0,
+            "Prone Hit Rate": 70.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 3,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 75.0,
+                    "Prone": 70.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    }
+]

@@ -35,3 +35,5 @@ def page1():
             training_mode = "GLS"
             biathlon_stats_gls(date, mode, training_mode)
 
+if __name__ == "__main__":
+    page1()

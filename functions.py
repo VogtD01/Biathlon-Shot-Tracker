@@ -118,16 +118,33 @@ def biathlon_stats_komplex(date, mode, training_mode):
         st.write("Prone hit rate for the day:", round(prone_hit_rate_day, 2), "%")
         st.write("Standing hit rate for the day:", round(standing_hit_rate_day, 2), "%")
 
-        # JSON-Datei laden oder initialisieren, falls nicht vorhanden
+        
+        
         if st.button("Save all data"):
-            if os.path.exists("biathlon_statistics.json") and os.path.getsize("biathlon_statistics.json") > 0:
-                with open("biathlon_statistics.json", "r") as file:
+            # Prüfen, ob der Benutzer eingeloggt ist
+            if 'user' not in st.session_state:
+                st.error("You need to log in to view this page.")
+                return
+
+            user = st.session_state.user
+
+            # Ordner 'JSON' erstellen, falls er nicht existiert
+            os.makedirs("JSON", exist_ok=True)
+
+            # Benutzer-spezifischer Dateiname
+            file_name = f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json"
+            file_path = os.path.join("JSON", file_name)
+
+            # Benutzer-spezifische JSON-Datei laden oder initialisieren
+            if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
+                with open(file_path, "r") as file:
                     try:
                         statistics = json.load(file)
                     except json.JSONDecodeError:
                         statistics = []
             else:
                 statistics = []
+
 
             # Speichern der neuen Daten
             statistics.append({
@@ -146,7 +163,7 @@ def biathlon_stats_komplex(date, mode, training_mode):
                 "Discipline Details": complete_statistics
             })
 
-            with open("biathlon_statistics.json", "w") as file:
+            with open(file_path, "w") as file:
                 json.dump(statistics, file, indent=4)
 
             st.success("Hit rate and data were saved successfully.")
@@ -202,8 +219,23 @@ def biathlon_stats_gls(date, mode, training_mode):
 
     # JSON-Datei laden oder initialisieren, falls nicht vorhanden
     if st.button("Save all data"):
-        if os.path.exists("biathlon_statistics_gls.json") and os.path.getsize("biathlon_statistics_gls.json") > 0:
-            with open("biathlon_statistics_gls.json", "r") as file:
+        # Prüfen, ob der Benutzer eingeloggt ist
+        if 'user' not in st.session_state:
+            st.error("You need to log in to view this page.")
+            return
+
+        user = st.session_state.user
+
+        # Ordner 'JSON' erstellen, falls er nicht existiert
+        os.makedirs("JSON", exist_ok=True)
+
+        # Benutzer-spezifischer Dateiname
+        file_name = f"biathlon_statistics_GLS_{user['first_name']}_{user['last_name']}.json"
+        file_path = os.path.join("JSON", file_name)
+
+        # Benutzer-spezifische JSON-Datei laden oder initialisieren
+        if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
+            with open(file_path, "r") as file:
                 try:
                     statistics = json.load(file)
                 except json.JSONDecodeError:
@@ -211,7 +243,7 @@ def biathlon_stats_gls(date, mode, training_mode):
         else:
             statistics = []
 
-        # Speichern der neuen Daten
+    # Speichern der neuen Daten
         statistics.append({
             "Date": date.strftime("%Y-%m-%d"),
             "Mode": mode,
@@ -233,7 +265,8 @@ def biathlon_stats_gls(date, mode, training_mode):
             }
         })
 
-        with open("biathlon_statistics_gls.json", "w") as file:
-            json.dump(statistics, file, indent=4)
+
+        with open(file_path, "w") as file:
+            json.dump(statistics, file, indent=4)    
 
         st.success("Hit rate and data were saved successfully.")
