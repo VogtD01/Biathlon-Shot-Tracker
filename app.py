@@ -4,6 +4,7 @@ import json
 import hashlib
 import profile_page
 from page1 import page1
+from trainer_app import trainer_app
 
 # Main app
 def app():
@@ -24,7 +25,6 @@ def app():
         st.write("This is the statistics/graphs page.")
     elif selected == 'Profile':
         profile_page.profile_page()
-
 
 # Function to hash passwords
 def hash_password(password):
@@ -122,7 +122,10 @@ if 'page' not in st.session_state:
     st.session_state.page = 'login'
 
 if st.session_state.logged_in:
-    app()
+    if st.session_state.user['first_name'] == 'Trainer':
+        trainer_app()
+    else:
+        app()
 else:
     if st.session_state.page == 'login':
         login_page()
