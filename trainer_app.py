@@ -1,5 +1,7 @@
 import streamlit as st
+from streamlit_option_menu import option_menu
 import json
+import os
 
 # Load athletes from a JSON file
 def load_athletes():
@@ -25,11 +27,10 @@ def load_trainer_team(trainer_name):
         return []
 
 def trainer_app():
-    st.title("Trainer App")
+    st.title("Welcome, Trainer " + st.session_state.user['last_name'] + "!")
 
     # Check if the logged-in user is Trainer Huber
     if st.session_state.user['first_name'].lower() == 'trainer' and st.session_state.user['last_name'].lower() == 'huber':
-        st.subheader("Welcome, Trainer Huber!")
 
         trainer_name = f"{st.session_state.user['first_name'].lower()}_{st.session_state.user['last_name'].lower()}"
 
@@ -38,13 +39,19 @@ def trainer_app():
             st.session_state.trainer_team = load_trainer_team(trainer_name)
 
         # Page navigation
-        page = st.sidebar.selectbox("Select Page", ["Your Team", "Stats", "Team Management"])
+        selected = option_menu(
+            menu_title=None,
+            options=['My Team', 'Statistics/Graphs', 'Team Manager'],
+            icons=['person-standing', 'graph-up', 'person-fill-gear'],
+            default_index=0,
+            orientation='horizontal'
+        )
 
-        if page == "Your Team":
+        if selected == 'My Team':
             show_team()
-        elif page == "Stats":
+        elif selected == 'Statistics/Graphs':
             show_stats()
-        elif page == "Team Management":
+        elif selected == 'Team Manager':
             team_management(trainer_name)
     else:
         st.error("You are not authorized to access this page.")
@@ -52,7 +59,12 @@ def trainer_app():
 def show_team():
     st.subheader("Your Team")
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
-        for athlete in st.session_state.trainer_team:
+         for athlete in st.session_state.trainer_team:
+            image_path = f"images/{athlete['email']}.jpg"
+            if os.path.exists(image_path):
+                st.image(image_path, width=100)
+            else:
+                st.image("images/default.jpg", width=100)
             st.write(f"{athlete['first_name']} {athlete['last_name']}")
     else:
         st.write("No athletes in your team yet.")
@@ -67,18 +79,21 @@ def team_management(trainer_name):
     # Load all athletes
     athletes = load_athletes()
 
+    # Filter out athletes who are already in the trainer's team
+    available_athletes = [athlete for athlete in athletes if athlete not in st.session_state.trainer_team]
+
     # Select athletes for the trainer's team
     st.subheader("Select Athletes for Your Team")
     selected_athletes = st.multiselect(
         "Select Athletes",
-        options=[f"{athlete['first_name']} {athlete['last_name']}" for athlete in athletes]
+        options=[f"{athlete['first_name']} {athlete['last_name']}" for athlete in available_athletes]
     )
 
     # Save the selected athletes to the trainer's team
     if st.button("Save Team"):
         trainer_team = [athlete for athlete in athletes if f"{athlete['first_name']} {athlete['last_name']}" in selected_athletes]
-        st.session_state.trainer_team = trainer_team
-        save_trainer_team(trainer_team, trainer_name)
+        st.session_state.trainer_team.extend(trainer_team)
+        save_trainer_team(st.session_state.trainer_team, trainer_name)
         st.success("Team saved successfully!")
 
     # Select athletes to remove from the trainer's team
@@ -96,16 +111,16 @@ def team_management(trainer_name):
 
 # Example users.json content:
 # [
-#     {"first_name": "John", "last_name": "Doe"},
-#     {"first_name": "Jane", "last_name": "Smith"},
-#     {"first_name": "Emily", "last_name": "Jones"},
-#     {"first_name": "Trainer", "last_name": "Huber"}
+#     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
+#     {"first_name": "Jane", "last_name": "Smith", "image_url": "path/to/jane_smith_image.png"},
+#     {"first_name": "Emily", "last_name": "Jones", "image_url": "path/to/emily_jones_image.png"},
+#     {"first_name": "Trainer", "last_name": "Huber", "image_url": "path/to/trainer_huber_image.png"}
 # ]
 
 # Example trainer_huber_team.json content:
 # [
-#     {"first_name": "John", "last_name": "Doe"},
-#     {"first_name": "Jane", "last_name": "Smith"}
+#     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
+#     {"first_name": "Jane", "last_name": "Smith", "image_url": "path/to/jane_smith_image.png"}
 # ]
 
 if __name__ == "__main__":
