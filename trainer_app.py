@@ -57,7 +57,6 @@ def trainer_app():
         st.error("You are not authorized to access this page.")
 
 def show_team():
-    st.subheader("Your Team")
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
          for athlete in st.session_state.trainer_team:
             image_path = f"images/{athlete['email']}.jpg"
@@ -70,12 +69,9 @@ def show_team():
         st.write("No athletes in your team yet.")
 
 def show_stats():
-    st.subheader("Stats")
     st.write("Stats page is under construction.")
 
 def team_management(trainer_name):
-    st.subheader("Team Management")
-
     # Load all athletes
     athletes = load_athletes()
 
