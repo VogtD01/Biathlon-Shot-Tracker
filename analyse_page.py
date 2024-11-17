@@ -51,7 +51,7 @@ def plot_wind_condition_comparison(user, mode=None, training_mode=None):
     af.plot_wind_condition_comparison(wind_stats)
 
 # Hauptfunktion
-def main():
+def main(user):
     st.title(f"Hit Rate Analysis for {user['first_name']} {user['last_name']}")
 
     # Auswahl des Modus
@@ -93,6 +93,6 @@ def main():
         plot_wind_condition_comparison(user, mode, training_mode)
 
 if __name__ == "__main__":
-    main()
+    main(user)
 
     ##########################test

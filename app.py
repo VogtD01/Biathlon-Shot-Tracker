@@ -29,7 +29,7 @@ def app():
             st.session_state['user'] = {'first_name': 'Default', 'last_name': 'User'}  # Beispielwerte, anpassen wie nötig
         user = st.session_state['user']
 
-        ap.main()
+        ap.main(user)
 
 
 
