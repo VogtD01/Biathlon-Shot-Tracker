@@ -18,7 +18,7 @@
                 "Instance": 1,
                 "Errors": {
                     "Prone": 0,
-                    "Standing": 0
+                    "Standing": 3
                 },
                 "Hit Rates": {
                     "Total": 100.0,
@@ -111,6 +111,64 @@
                     "Total": 70.0,
                     "Prone": 70.0,
                     "Standing": 70.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-21",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 0,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 70.0,
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 60.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 70.0,
+                    "Prone": 80.0,
+                    "Standing": 60.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-27",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 5,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 50.0,
+            "Prone Hit Rate": 50.0,
+            "Standing Hit Rate": 50.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 5,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 50.0,
+                    "Prone": 50.0,
+                    "Standing": 50.0
                 }
             }
         ]
