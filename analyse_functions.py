@@ -45,10 +45,7 @@ def calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors):
     standing_hit_rate = 1 - total_standing_errors / (total_shots/2)
     return overall_hit_rate, prone_hit_rate, standing_hit_rate
 
-
-
-
-def analyze_discipline_old(file_path, discipline_name, mode=None, training_mode=None):
+def analyze_discipline(file_path, discipline_name=None, mode=None, training_mode=None, wind_condition=None):
     statistics = load_statistics(file_path)
     if not statistics:
         return None, None, None, None, None, None, None
@@ -58,46 +55,12 @@ def analyze_discipline_old(file_path, discipline_name, mode=None, training_mode=
     total_prone_errors = 0
     total_standing_errors = 0
 
-    # Setze die Anzahl der Schüsse pro Instanz basierend auf der Disziplin
-    shots_per_instance = 10 if discipline_name == "Sprint" else 20
-
     for entry in statistics:
         if "Discipline Details" in entry:
             for discipline in entry["Discipline Details"]:
-                if discipline["Discipline"] == discipline_name:
-                    if (mode is None or entry["Mode"] == mode) and (training_mode is None or entry["Trainings_mode"] == training_mode):
-                        discipline_count += 1
-                        total_shots += shots_per_instance
-                        total_prone_errors += discipline["Errors"]["Prone"]
-                        total_standing_errors += discipline["Errors"]["Standing"]
-
-    if total_shots > 0:
-        hit_rate = 1 - (total_prone_errors + total_standing_errors) / total_shots
-        hit_rate_prone = 1 - total_prone_errors / (total_shots / 2)
-        hit_rate_standing = 1 - total_standing_errors / (total_shots / 2)
-    else:
-        hit_rate = hit_rate_prone = hit_rate_standing = 0
-
-    return discipline_count, total_shots, total_prone_errors, total_standing_errors, hit_rate, hit_rate_prone, hit_rate_standing
-
-def analyze_discipline(file_path, discipline_name, mode=None, training_mode=None, wind_condition=None):
-    statistics = load_statistics(file_path)
-    if not statistics:
-        return None, None, None, None, None, None, None
-
-    discipline_count = 0
-    total_shots = 0
-    total_prone_errors = 0
-    total_standing_errors = 0
-
-    # Setze die Anzahl der Schüsse pro Instanz basierend auf der Disziplin
-    shots_per_instance = 10 if discipline_name == "Sprint" else 20
-
-    for entry in statistics:
-        if "Discipline Details" in entry:
-            for discipline in entry["Discipline Details"]:
-                if discipline["Discipline"] == discipline_name:
+                if (discipline_name is None or discipline["Discipline"] == discipline_name):
                     if (mode is None or entry["Mode"] == mode) and (training_mode is None or entry["Trainings_mode"] == training_mode) and (wind_condition is None or entry["Wind Conditions"] == wind_condition):
+                        shots_per_instance = 10 if discipline["Discipline"] == "Sprint" else 20
                         discipline_count += 1
                         total_shots += shots_per_instance
                         total_prone_errors += discipline["Errors"]["Prone"]
@@ -133,7 +96,7 @@ def collect_overall_hit_rates(file_path):
 
     return overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time
 
-def collect_hit_rates(file_path, discipline_name, mode=None, training_mode=None):
+def collect_hit_rates(file_path, discipline_name=None, mode=None, training_mode=None):
     statistics = load_statistics(file_path)
     if not statistics:
         return [], [], []
@@ -142,14 +105,12 @@ def collect_hit_rates(file_path, discipline_name, mode=None, training_mode=None)
     hit_rate_prone_over_time = defaultdict(list)
     hit_rate_standing_over_time = defaultdict(list)
 
-    # Setze die Anzahl der Schüsse pro Instanz basierend auf der Disziplin
-    shots_per_instance = 10 if discipline_name == "Sprint" else 20
-
     for entry in statistics:
         if "Discipline Details" in entry:
             for discipline in entry["Discipline Details"]:
-                if discipline["Discipline"] == discipline_name:
+                if (discipline_name is None or discipline["Discipline"] == discipline_name):
                     if (mode is None or entry["Mode"] == mode) and (training_mode is None or entry["Trainings_mode"] == training_mode):
+                        shots_per_instance = 10 if discipline["Discipline"] == "Sprint" else 20
                         total_shots = shots_per_instance
                         total_prone_errors = discipline["Errors"]["Prone"]
                         total_standing_errors = discipline["Errors"]["Standing"]
@@ -172,12 +133,12 @@ def collect_hit_rates(file_path, discipline_name, mode=None, training_mode=None)
 
     return avg_hit_rates_over_time, avg_hit_rate_prone_over_time, avg_hit_rate_standing_over_time
 
-def compare_disciplines(file_path):
+def compare_disciplines(file_path, mode=None, training_mode=None):
     disciplines = ["Individual", "Mass Start", "Sprint", "Pursuit"]
     discipline_stats = {}
 
     for discipline in disciplines:
-        count, total_shots, total_prone_errors, total_standing_errors, hit_rate, hit_rate_prone, hit_rate_standing = analyze_discipline(file_path, discipline)
+        count, total_shots, total_prone_errors, total_standing_errors, hit_rate, hit_rate_prone, hit_rate_standing = analyze_discipline(file_path, discipline, mode=mode, training_mode=training_mode)
         discipline_stats[discipline] = {
             "count": count,
             "total_shots": total_shots,
@@ -190,8 +151,7 @@ def compare_disciplines(file_path):
 
     return discipline_stats
 
-def compare_wind_conditions(file_path):
-
+def compare_wind_conditions(file_path, mode=None, training_mode=None):
     wind_conditions = ["Calm", "Light Wind", "Windy", "Stormy"]
     wind_stats = {condition: {"total_shots": 0, "total_prone_errors": 0, "total_standing_errors": 0, "hit_rate": 0} for condition in wind_conditions}
 
@@ -200,13 +160,14 @@ def compare_wind_conditions(file_path):
         return wind_stats
 
     for entry in statistics:
-        condition = entry["Wind Conditions"]
-        if condition in wind_conditions:
-            for discipline in entry["Discipline Details"]:
-                shots_per_instance = 10 if discipline["Discipline"] == "Sprint" else 20
-                wind_stats[condition]["total_shots"] += shots_per_instance
-                wind_stats[condition]["total_prone_errors"] += discipline["Errors"]["Prone"]
-                wind_stats[condition]["total_standing_errors"] += discipline["Errors"]["Standing"]
+        if (mode is None or entry["Mode"] == mode) and (training_mode is None or entry["Trainings_mode"] == training_mode):
+            condition = entry["Wind Conditions"]
+            if condition in wind_conditions:
+                for discipline in entry["Discipline Details"]:
+                    shots_per_instance = 10 if discipline["Discipline"] == "Sprint" else 20
+                    wind_stats[condition]["total_shots"] += shots_per_instance
+                    wind_stats[condition]["total_prone_errors"] += discipline["Errors"]["Prone"]
+                    wind_stats[condition]["total_standing_errors"] += discipline["Errors"]["Standing"]
 
     for condition in wind_conditions:
         total_shots = wind_stats[condition]["total_shots"]
@@ -219,6 +180,9 @@ def compare_wind_conditions(file_path):
     return wind_stats
 
 def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time=None, standing_hit_rates_over_time=None, show_prone_standing=False):
+    """Als grundlage der funktion muss vorher die funktion collect_overall_hit_rates ausgeführt werden, um die Daten zu erhalten
+    """
+    
     if not overall_hit_rates_over_time and not (show_prone_standing and prone_hit_rates_over_time) and not (show_prone_standing and standing_hit_rates_over_time):
         st.write("No data available to plot.")
         return
@@ -256,45 +220,51 @@ def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_tim
 
     st.pyplot(fig)
 
-def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=False):
+def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=True):
+    """
+    Als grundlage der funktion muss vorher die funktion collect_hit_rates ausgeführt werden, um die Daten zu erhalten
+    """
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
         st.write("No data available to plot.")
         return
 
-    plt.figure(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(10, 5))
 
     has_data = False
 
     if hit_rates_over_time:
         dates, hit_rates = zip(*hit_rates_over_time)
-        plt.plot(dates, hit_rates, marker='o', linestyle='-', color='b', label='Total Hit Rate')
+        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='b', label='Total Hit Rate')
         has_data = True
 
     if show_prone_standing and hit_rate_prone_over_time:
         dates_prone, hit_rates_prone = zip(*hit_rate_prone_over_time)
-        plt.plot(dates_prone, hit_rates_prone, marker='o', linestyle='--', color='gray', label='Prone Hit Rate')
+        ax.plot(dates_prone, hit_rates_prone, marker='o', linestyle='--', color='gray', label='Prone Hit Rate')
         has_data = True
 
     if show_prone_standing and hit_rate_standing_over_time:
         dates_standing, hit_rates_standing = zip(*hit_rate_standing_over_time)
-        plt.plot(dates_standing, hit_rates_standing, marker='o', linestyle='-.', color='gray', label='Standing Hit Rate')
+        ax.plot(dates_standing, hit_rates_standing, marker='o', linestyle='-.', color='gray', label='Standing Hit Rate')
         has_data = True
 
-    plt.xlabel('Date')
-    plt.ylabel('Hit Rate')
-    plt.title('Hit Rate Over Time')
-    plt.xticks(rotation=45)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Hit Rate')
+    ax.set_title('Hit Rate Over Time')
+    ax.tick_params(axis='x', rotation=45)
     
     # Nur die Legende anzeigen, wenn es Daten gibt
     if has_data:
-        plt.legend()
+        ax.legend()
 
-    plt.grid(True)
+    ax.grid(True)
     plt.tight_layout()
 
-    st.pyplot(plt)
+    st.pyplot(fig)
 
 def plot_discipline_comparison(discipline_stats):
+    """Als grundlage der funktion muss vorher die funktion compare_disciplines ausgeführt werden, um die Daten zu erhalten
+    """
+    
     if not discipline_stats:
         st.write("No data available to plot.")
         return
@@ -314,6 +284,9 @@ def plot_discipline_comparison(discipline_stats):
     st.pyplot(plt)
 
 def plot_wind_condition_comparison(wind_stats):
+    """Als grundlage der funktion muss vorher die funktion compare_wind_conditions ausgeführt werden, um die Daten zu erhalten
+    """
+   
     if not wind_stats:
         st.write("No data available to plot.")
         return
@@ -333,78 +306,50 @@ def plot_wind_condition_comparison(wind_stats):
 
 #######################################################################################
 def main():
+    # nur tests hier
     st.title("Biathlon Statistics")
 
     file_path = os.path.join("JSON", "biathlon_statistics_K_DV_01.json")
     statistics = load_statistics(file_path)
 
     if statistics:
-        total_shots = calculate_total_shots(statistics)
-        total_prone_errors = calculate_prone_errors(statistics)
-        total_standing_errors = calculate_standing_errors(statistics)
-
-        #Sprint statistics
-        #sprint_count, total_shots_sprint, total_prone_errors_sprint, total_standing_errors_sprint, sprint_hit_rate, sprint_hit_rate_prone, sprint_hit_rate_standing = analyze_discipline(file_path, "Sprint")
-
-        #individual statistics
-        #individual_count, total_shots_individual, total_prone_errors_individual, total_standing_errors_individual, individual_hit_rate, individual_hit_rate_prone, individual_hit_rate_standing = analyze_discipline(file_path, "Individual")
-
-       
-        # Individual statistics all
-        #ind_all_c, ts_all_c, pe_all_c, se_all_c, hr_all_c, hrp_all_c, hrs_all_c = analyze_discipline(file_path, "Individual")
-
-        # Individual statistics training
-        #ind_tr_c, ts_tr_c, pe_tr_c, se_tr_c, hr_tr_c, hrp_tr_c, hrs_tr_c = analyze_discipline(file_path, "Individual", mode="Training")
-
-        # Individual statistics competition
-        #ind_comp_c, ts_comp_c, pe_comp_c, se_comp_c, hr_comp_c, hrp_comp_c, hrs_comp_c = analyze_discipline(file_path, "Individual", mode="Competition")
-
-        # Show individual statistics all, komplex
-       # ind_all_k_c, ts_all_k_c, pe_all_k_c, se_all_k_c, hr_all_k_c, hrp_all_k_c, hrs_all_k_c = analyze_discipline(file_path, "Individual", training_mode="Komplex")
-
-        # Show individual statistics training, komplex 
-        #ind_tr_k_c, ts_tr_k_c, pe_tr_k_c, se_tr_k_c, hr_tr_k_c, hrp_tr_k_c, hrs_tr_k_c = analyze_discipline(file_path, "Individual", mode="Training", training_mode="Komplex")
-
-        # Show individual statistics training, TNS
-        #ind_tr_tns_c, ts_tr_tns_c, pe_tr_tns_c, se_tr_tns_c, hr_tr_tns_c, hrp_tr_tns_c, hrs_tr_tns_c = analyze_discipline(file_path, "Individual", training_mode="TNS")
-        #---------------------------------------
         
-        hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = collect_hit_rates(file_path, "Individual")
+        # schreiben dass jetzt die Hitrate geplottet wird
+        st.write("Hitrate wird geplottet von allem")
+        hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = collect_hit_rates(file_path)
 
-        show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
+        #show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
+        plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time)
 
+        # schreiben hitrate nur alle einzelnen Disziplinen
+        st.write("Hitrate wird geplottet von einzel")
+        hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual = collect_hit_rates(file_path, "Individual")
+        plot_hit_rates(hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual)
 
-        plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
+        # schreiben hitrate nur von trainingsmode TNS
+        st.write("Hitrate wird geplottet von Training TNS")
+        hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS = collect_hit_rates(file_path, training_mode="TNS")
+        plot_hit_rates(hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS)
+
 
         # Compare disciplines
+        st.write("discipline comparison")
         discipline_stats = compare_disciplines(file_path)
         plot_discipline_comparison(discipline_stats)
 
         # Compare wind conditions globally across all disciplines
+        st.write("wind condition comparison")
         wind_stats = compare_wind_conditions(file_path)
-        
         plot_wind_condition_comparison(wind_stats)
 
-        #---------------------------------
-        #analyse individual
-        ind_all_c, ts_all_c, pe_all_c, se_all_c, hr_all_c, hrp_all_c, hrs_all_c = analyze_discipline(file_path, "Individual")
-        st.write("Individual statistics all")
-        st.write(f"Count: {ind_all_c}")
-        st.write(f"Total Shots: {ts_all_c}")
-
-        hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = collect_hit_rates(file_path, "Individual")
-        st.write("hir rates over time")
-        #st.write(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time)
-
-        #
+     
+        st.write("overall hit rates")
         overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time = collect_overall_hit_rates(file_path)
-        show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate2", value=True)
-        plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time, show_prone_standing)
-
-
         
+        plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time)
 
 
-main()
+if __name__ == "__main__":
+    main()
 
     

@@ -5,6 +5,8 @@ import hashlib
 import profile_page
 from page1 import page1
 from trainer_app import trainer_app
+import analyse_page as ap
+
 
 # Main app
 def app():
@@ -23,6 +25,14 @@ def app():
     elif selected == 'Statistics/Graphs':
         st.title("Statistics/Graphs")
         st.write("This is the statistics/graphs page.")
+        if 'user' not in st.session_state:
+            st.session_state['user'] = {'first_name': 'Default', 'last_name': 'User'}  # Beispielwerte, anpassen wie nötig
+        user = st.session_state['user']
+
+        ap.main()
+
+
+
     elif selected == 'Profile':
         profile_page.profile_page()
 
