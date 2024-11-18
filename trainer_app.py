@@ -31,10 +31,23 @@ def load_trainer_team(trainer_name):
 
 
 
+def get_color_for_hit_rate(hit_rate):
+    if hit_rate < 0.5:
+        red = 255
+        green = 0
+    elif hit_rate < 0.85:
+        red = 255
+        green = int(255 * ((hit_rate - 0.5) / 0.35))
+    else:
+        red = 0
+        green = int(255 * ((1 - hit_rate) / 0.15))
+        green = max(green, 128)  # Ensure green is at least 128 for 100%
+    return f"rgb({red}, {green}, 0)"
+
 def show_team():
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
         for athlete in st.session_state.trainer_team:
-            col1, col2, col3 = st.columns([1, 2, 2])
+            col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
             with col1:
                 image_path = f"images/{athlete['email']}.jpg"
                 if os.path.exists(image_path):
@@ -70,11 +83,17 @@ def show_team():
                     st.write(f"Prone Hit Rate: {prone_hit_rate:.2%}")
                     st.write(f"Standing Hit Rate: {standing_hit_rate:.2%}")
                 else:
+                    st.write("No hit rate data available.")
+            with col4:
+                if overall_hit_rate is not None:
+                    st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(overall_hit_rate)}'></div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(prone_hit_rate)}'></div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(standing_hit_rate)}'></div>", unsafe_allow_html=True)
+                else:
                     st.write("")
             st.markdown("---")  # Trennlinie zwischen den Athleten
     else:
         st.write("No athletes in your team yet.")
-
 
 def show_stats():
      if 'trainer_team' in st.session_state and st.session_state.trainer_team:

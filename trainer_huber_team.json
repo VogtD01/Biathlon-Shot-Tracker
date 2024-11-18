@@ -43,5 +43,32 @@
         "height": 184,
         "weight": 64,
         "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    },
+    {
+        "first_name": "DV",
+        "last_name": "01",
+        "email": "dv",
+        "gender": "Male",
+        "height": 4,
+        "weight": 4,
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+    },
+    {
+        "first_name": "Fertig",
+        "last_name": "Endlich",
+        "email": "1",
+        "gender": "Male",
+        "height": 33,
+        "weight": 33,
+        "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+        "first_name": "4",
+        "last_name": "4",
+        "email": "4",
+        "gender": "Male",
+        "height": 0,
+        "weight": 0,
+        "password": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
     }
 ]

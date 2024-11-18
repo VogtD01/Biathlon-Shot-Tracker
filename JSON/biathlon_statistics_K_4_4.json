@@ -1,0 +1,125 @@
+[
+    {
+        "Date": "2024-11-18",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 30,
+            "Prone Errors": 0,
+            "Standing Errors": 6,
+            "Overall Hit Rate": 80.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 60.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Mass Start",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 4
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-18",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 50,
+            "Prone Errors": 0,
+            "Standing Errors": 10,
+            "Overall Hit Rate": 80.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 60.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 3,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 4,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 5,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 100.0,
+                    "Standing": 60.0
+                }
+            }
+        ]
+    }
+]
