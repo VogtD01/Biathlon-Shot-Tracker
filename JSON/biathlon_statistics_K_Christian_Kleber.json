@@ -1,0 +1,31 @@
+[
+    {
+        "Date": "2024-11-18",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 2,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 70.0,
+            "Prone Hit Rate": 60.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 70.0,
+                    "Prone": 60.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    }
+]

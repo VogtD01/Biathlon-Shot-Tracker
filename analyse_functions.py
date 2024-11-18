@@ -3,6 +3,8 @@ import os
 import streamlit as st
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def load_statistics(file_path):
@@ -179,92 +181,74 @@ def compare_wind_conditions(file_path, mode=None, training_mode=None):
 
     return wind_stats
 
+
+sns.set_theme(style="darkgrid")  # Stil für dunkles Design mit Gitter
+
 def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time=None, standing_hit_rates_over_time=None, show_prone_standing=False):
-    """Als grundlage der funktion muss vorher die funktion collect_overall_hit_rates ausgeführt werden, um die Daten zu erhalten
-    """
-    
     if not overall_hit_rates_over_time and not (show_prone_standing and prone_hit_rates_over_time) and not (show_prone_standing and standing_hit_rates_over_time):
         st.write("No data available to plot.")
         return
 
     fig, ax = plt.subplots(figsize=(10, 5))
-
-    has_data = False
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
     if overall_hit_rates_over_time:
         dates, overall_hit_rates = zip(*overall_hit_rates_over_time)
-        ax.plot(dates, overall_hit_rates, marker='o', linestyle='-', color='b', label='Overall Hit Rate')
-        has_data = True
+        ax.plot(dates, overall_hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)  # Cyan
 
     if show_prone_standing and prone_hit_rates_over_time:
         dates_prone, prone_hit_rates = zip(*prone_hit_rates_over_time)
-        ax.plot(dates_prone, prone_hit_rates, marker='o', linestyle='--', color='gray', label='Prone Hit Rate')
-        has_data = True
+        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)  # Orange-rot
 
     if show_prone_standing and standing_hit_rates_over_time:
         dates_standing, standing_hit_rates = zip(*standing_hit_rates_over_time)
-        ax.plot(dates_standing, standing_hit_rates, marker='o', linestyle='-.', color='gray', label='Standing Hit Rate')
-        has_data = True
+        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)  # Leuchtend Grün
 
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Hit Rate')
-    ax.set_title('Hit Rate Over Time')
-    ax.tick_params(axis='x', rotation=45)
-    
-    # Nur die Legende anzeigen, wenn es Daten gibt
-    if has_data:
-        ax.legend()
+    ax.set_title('Hit Rate Over Time', fontsize=18, color='white', weight='bold', pad=20)
+    ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
+    ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    ax.tick_params(axis='x', rotation=45, labelsize=12, colors='white')
+    ax.tick_params(axis='y', labelsize=12, colors='white')
+    ax.legend(loc='upper left', fontsize=12, frameon=False, facecolor='black', edgecolor='black', labelcolor='white')
+    ax.grid(visible=True, linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
 
-    ax.grid(True)
-    plt.tight_layout()
-
+    fig.tight_layout()
     st.pyplot(fig)
 
 def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=True):
-    """
-    Als grundlage der funktion muss vorher die funktion collect_hit_rates ausgeführt werden, um die Daten zu erhalten
-    """
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
         st.write("No data available to plot.")
         return
 
     fig, ax = plt.subplots(figsize=(10, 5))
-
-    has_data = False
+    fig.patch.set_facecolor('black')
+    ax.set_facecolor('black')
 
     if hit_rates_over_time:
         dates, hit_rates = zip(*hit_rates_over_time)
-        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='b', label='Total Hit Rate')
-        has_data = True
+        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)
 
     if show_prone_standing and hit_rate_prone_over_time:
-        dates_prone, hit_rates_prone = zip(*hit_rate_prone_over_time)
-        ax.plot(dates_prone, hit_rates_prone, marker='o', linestyle='--', color='gray', label='Prone Hit Rate')
-        has_data = True
+        dates_prone, prone_hit_rates = zip(*hit_rate_prone_over_time)
+        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)
 
     if show_prone_standing and hit_rate_standing_over_time:
-        dates_standing, hit_rates_standing = zip(*hit_rate_standing_over_time)
-        ax.plot(dates_standing, hit_rates_standing, marker='o', linestyle='-.', color='gray', label='Standing Hit Rate')
-        has_data = True
+        dates_standing, standing_hit_rates = zip(*hit_rate_standing_over_time)
+        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)
 
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Hit Rate')
-    ax.set_title('Hit Rate Over Time')
-    ax.tick_params(axis='x', rotation=45)
-    
-    # Nur die Legende anzeigen, wenn es Daten gibt
-    if has_data:
-        ax.legend()
+    ax.set_title('Hit Rates Over Time', fontsize=18, color='white', weight='bold', pad=20)
+    ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
+    ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    ax.tick_params(axis='x', rotation=45, labelsize=12, colors='white')
+    ax.tick_params(axis='y', labelsize=12, colors='white')
+    ax.legend(loc='upper left', fontsize=12, frameon=False, facecolor='black', edgecolor='black', labelcolor='white')
+    ax.grid(visible=True, linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
 
-    ax.grid(True)
-    plt.tight_layout()
-
+    fig.tight_layout()
     st.pyplot(fig)
 
 def plot_discipline_comparison(discipline_stats):
-    """Als grundlage der funktion muss vorher die funktion compare_disciplines ausgeführt werden, um die Daten zu erhalten
-    """
-    
     if not discipline_stats:
         st.write("No data available to plot.")
         return
@@ -272,21 +256,24 @@ def plot_discipline_comparison(discipline_stats):
     disciplines = list(discipline_stats.keys())
     hit_rates = [discipline_stats[discipline]["hit_rate"] for discipline in disciplines]
 
-    plt.figure(figsize=(10, 5))
-    plt.bar(disciplines, hit_rates, color=['blue', 'green', 'red', 'purple'])
-    plt.xlabel('Discipline')
-    plt.ylabel('Hit Rate')
-    plt.title('Hit Rate Comparison Across Disciplines')
-    plt.ylim(0, 1)
-    plt.grid(True)
-    plt.tight_layout()
+    fig, ax = plt.subplots(figsize=(8, 5))
+    fig.patch.set_facecolor('black')
+    ax.set_facecolor('black')
 
-    st.pyplot(plt)
+    bars = ax.bar(disciplines, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])  # Gold, Tomatenrot, Leuchtgrün, Blau
+    ax.set_xlabel('Discipline', fontsize=14, color='white', labelpad=10)
+    ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    ax.set_title('Hit Rate Comparison Across Disciplines', fontsize=18, color='white', weight='bold', pad=20)
+    ax.set_ylim(0, 1)
+    ax.tick_params(axis='x', labelsize=12, colors='white')
+    ax.tick_params(axis='y', labelsize=12, colors='white')
+    ax.bar_label(bars, fmt='%.2f', fontsize=10, color='white')
+    ax.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
+
+    fig.tight_layout()
+    st.pyplot(fig)
 
 def plot_wind_condition_comparison(wind_stats):
-    """Als grundlage der funktion muss vorher die funktion compare_wind_conditions ausgeführt werden, um die Daten zu erhalten
-    """
-   
     if not wind_stats:
         st.write("No data available to plot.")
         return
@@ -294,15 +281,23 @@ def plot_wind_condition_comparison(wind_stats):
     conditions = list(wind_stats.keys())
     hit_rates = [wind_stats[condition]["hit_rate"] for condition in conditions]
 
-    plt.figure(figsize=(10, 5))
-    plt.bar(conditions, hit_rates, color=['blue', 'green', 'red', 'purple'])
-    plt.xlabel('Wind Conditions')
-    plt.ylabel('Hit Rate')
-    plt.title('Hit Rate Comparison Across Wind Conditions')
-    plt.ylim(0, 1)
-    plt.grid(True)
-    plt.tight_layout()
-    st.pyplot(plt)
+    fig, ax = plt.subplots(figsize=(8, 5))
+    fig.patch.set_facecolor('black')
+    ax.set_facecolor('black')
+
+    bars = ax.bar(conditions, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])
+    ax.set_xlabel('Wind Conditions', fontsize=14, color='white', labelpad=10)
+    ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    ax.set_title('Hit Rate Comparison Across Wind Conditions', fontsize=18, color='white', weight='bold', pad=20)
+    ax.set_ylim(0, 1)
+    ax.tick_params(axis='x', labelsize=12, colors='white')
+    ax.tick_params(axis='y', labelsize=12, colors='white')
+    ax.bar_label(bars, fmt='%.2f', fontsize=10, color='white')
+    ax.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
+
+    fig.tight_layout()
+    st.pyplot(fig)
+
 
 #######################################################################################
 def main():
