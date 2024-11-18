@@ -8,7 +8,7 @@ if 'user' not in st.session_state:
 
 user = st.session_state['user']
 
-def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
+def plot_user_hit_rate_over_time_old(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
@@ -21,7 +21,21 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
-def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
+def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
+    # Datei Pfad basierend auf dem Benutzer
+    file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
+
+    # Trefferquoten über die Zeit sammeln
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, discipline_name = af.collect_hit_rates(file_path, mode=mode, training_mode=training_mode)
+
+    # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
+    show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
+
+    # Trefferquoten über die Zeit ausplotten
+    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+
+
+def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
@@ -34,6 +48,19 @@ def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=Non
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
+def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
+    # Datei Pfad basierend auf dem Benutzer
+    file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
+
+    # Trefferquoten über die Zeit sammeln für die gewählte Disziplin
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, _ = af.collect_hit_rates(file_path, discipline_name, mode=mode, training_mode=training_mode)
+
+    # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
+    show_prone_standing = st.checkbox(f"Show Prone/Standing Hit Rate for {discipline_name}", value=True)
+
+    # Trefferquoten über die Zeit ausplotten
+    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+    
 def plot_discipline_comparison(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
