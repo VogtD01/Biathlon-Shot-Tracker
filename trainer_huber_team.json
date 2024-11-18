@@ -9,13 +9,22 @@
         "password": "1bd2f6efec083a3a192288c204c8b14f66911f32dfc9a9f6d9a81119ce57965a"
     },
     {
-        "first_name": "Florian",
-        "last_name": "Schrottenbaum",
-        "email": "f.schrottenbaum@mci4me.at",
+        "first_name": "2",
+        "last_name": "2",
+        "email": "2",
         "gender": "Male",
-        "height": 184,
-        "weight": 64,
-        "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        "height": 0,
+        "weight": 0,
+        "password": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+        "first_name": "3",
+        "last_name": "3",
+        "email": "3",
+        "gender": "Male",
+        "height": 0,
+        "weight": 0,
+        "password": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
     },
     {
         "first_name": "Christian",
@@ -27,12 +36,12 @@
         "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
     },
     {
-        "first_name": "2",
-        "last_name": "2",
-        "email": "2",
+        "first_name": "Florian",
+        "last_name": "Schrottenbaum",
+        "email": "f.schrottenbaum@mci4me.at",
         "gender": "Male",
-        "height": 0,
-        "weight": 0,
-        "password": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        "height": 184,
+        "weight": 64,
+        "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
     }
 ]

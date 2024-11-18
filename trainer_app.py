@@ -4,6 +4,7 @@ import json
 import os
 import matplotlib.pyplot as plt
 import analyse_page as ap
+import analyse_functions as af
 
 # Load athletes from a JSON file
 def load_athletes():
@@ -28,47 +29,52 @@ def load_trainer_team(trainer_name):
     except FileNotFoundError:
         return []
 
-def trainer_app():
-    st.title("Welcome, Trainer " + st.session_state.user['last_name'] + "!")
 
-    # Check if the logged-in user is Trainer Huber
-    if st.session_state.user['first_name'].lower() == 'trainer' and st.session_state.user['last_name'].lower() == 'huber':
-
-        trainer_name = f"{st.session_state.user['first_name'].lower()}_{st.session_state.user['last_name'].lower()}"
-
-        # Load the trainer's team from the JSON file
-        if 'trainer_team' not in st.session_state:
-            st.session_state.trainer_team = load_trainer_team(trainer_name)
-
-        # Page navigation
-        selected = option_menu(
-            menu_title=None,
-            options=['My Team', 'Statistics/Graphs', 'Team Manager'],
-            icons=['person-standing', 'graph-up', 'person-fill-gear'],
-            default_index=0,
-            orientation='horizontal'
-        )
-
-        if selected == 'My Team':
-            show_team()
-        elif selected == 'Statistics/Graphs':
-            show_stats()
-        elif selected == 'Team Manager':
-            team_management(trainer_name)
-    else:
-        st.error("You are not authorized to access this page.")
 
 def show_team():
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
-         for athlete in st.session_state.trainer_team:
-            image_path = f"images/{athlete['email']}.jpg"
-            if os.path.exists(image_path):
-                st.image(image_path, width=100)
-            else:
-                st.image("images/default.jpg", width=100)
-            st.write(f"{athlete['first_name']} {athlete['last_name']}")
+        for athlete in st.session_state.trainer_team:
+            col1, col2, col3 = st.columns([1, 2, 2])
+            with col1:
+                image_path = f"images/{athlete['email']}.jpg"
+                if os.path.exists(image_path):
+                    st.image(image_path, width=100)
+                else:
+                    st.image("images/default.jpg", width=100)
+            with col2:
+                st.write(f"{athlete['first_name']} {athlete['last_name']}")
+
+                # Lade die Statistiken des Athleten
+                statistics_file = f"JSON/biathlon_statistics_K_{athlete['first_name']}_{athlete['last_name']}.json"
+                try:
+                    with open(statistics_file, 'r') as file:
+                        statistics = json.load(file)
+                    total_shots = af.calculate_total_shots(statistics)
+                    total_prone_errors = af.calculate_prone_errors(statistics)
+                    total_standing_errors = af.calculate_standing_errors(statistics)
+                    overall_hit_rate, prone_hit_rate, standing_hit_rate = af.calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors)
+
+                    st.write(f"Total Shots: {total_shots}")
+                    st.write(f"Total Errors: {total_prone_errors + total_standing_errors}")
+                except FileNotFoundError:
+                    st.write("No statistics available for this athlete.")
+                    total_shots = None
+                    total_prone_errors = None
+                    total_standing_errors = None
+                    overall_hit_rate = None
+                    prone_hit_rate = None
+                    standing_hit_rate = None
+            with col3:
+                if overall_hit_rate is not None:
+                    st.write(f"Overall Hit Rate: {overall_hit_rate:.2%}")
+                    st.write(f"Prone Hit Rate: {prone_hit_rate:.2%}")
+                    st.write(f"Standing Hit Rate: {standing_hit_rate:.2%}")
+                else:
+                    st.write("")
+            st.markdown("---")  # Trennlinie zwischen den Athleten
     else:
         st.write("No athletes in your team yet.")
+
 
 def show_stats():
      if 'trainer_team' in st.session_state and st.session_state.trainer_team:
@@ -133,6 +139,36 @@ def team_management(trainer_name):
 #     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
 #     {"first_name": "Jane", "last_name": "Smith", "image_url": "path/to/jane_smith_image.png"}
 # ]
+
+def trainer_app():
+    st.title("Welcome, Trainer " + st.session_state.user['last_name'] + "!")
+
+    # Check if the logged-in user is Trainer Huber
+    if st.session_state.user['first_name'].lower() == 'trainer' and st.session_state.user['last_name'].lower() == 'huber':
+
+        trainer_name = f"{st.session_state.user['first_name'].lower()}_{st.session_state.user['last_name'].lower()}"
+
+        # Load the trainer's team from the JSON file
+        if 'trainer_team' not in st.session_state:
+            st.session_state.trainer_team = load_trainer_team(trainer_name)
+
+        # Page navigation
+        selected = option_menu(
+            menu_title=None,
+            options=['My Team', 'Statistics/Graphs', 'Team Manager'],
+            icons=['person-standing', 'graph-up', 'person-fill-gear'],
+            default_index=0,
+            orientation='horizontal'
+        )
+
+        if selected == 'My Team':
+            show_team()
+        elif selected == 'Statistics/Graphs':
+            show_stats()
+        elif selected == 'Team Manager':
+            team_management(trainer_name)
+    else:
+        st.error("You are not authorized to access this page.")
 
 if __name__ == "__main__":
     trainer_app()

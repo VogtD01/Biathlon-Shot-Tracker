@@ -56,5 +56,5 @@ Hier sind die Schritte, um die Anwendung auf Ihrem lokalen Computer auszuführen
 
    Starten Sie die Anwendung mit dem folgenden Befehl:
    ```sh
-   streamlit run main2.py
+   streamlit run app.py
    ```
