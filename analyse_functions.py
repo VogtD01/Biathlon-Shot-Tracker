@@ -219,9 +219,7 @@ def compare_wind_conditions(file_path, mode=None, training_mode=None):
     return wind_stats
 
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-import streamlit as st
+
 
 sns.set_theme(style="darkgrid")  # Stil für dunkles Design mit Gitter
 
@@ -231,20 +229,20 @@ def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_tim
         return
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
     if overall_hit_rates_over_time:
         dates, overall_hit_rates = zip(*overall_hit_rates_over_time)
-        ax.plot(dates, overall_hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)
+        ax.plot(dates, overall_hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)  # Cyan
 
     if show_prone_standing and prone_hit_rates_over_time:
         dates_prone, prone_hit_rates = zip(*prone_hit_rates_over_time)
-        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)
+        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)  # Orange-rot
 
     if show_prone_standing and standing_hit_rates_over_time:
         dates_standing, standing_hit_rates = zip(*standing_hit_rates_over_time)
-        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)
+        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)  # Leuchtend Grün
 
     ax.set_title('Hit Rate Over Time', fontsize=18, color='white', weight='bold', pad=20)
     ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
@@ -263,20 +261,20 @@ def plot_hit_rates_old(hit_rates_over_time, hit_rate_prone_over_time=None, hit_r
         return
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
     if hit_rates_over_time:
         dates, hit_rates = zip(*hit_rates_over_time)
-        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)
+        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)  # Cyan
 
     if show_prone_standing and hit_rate_prone_over_time:
         dates_prone, prone_hit_rates = zip(*hit_rate_prone_over_time)
-        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)
+        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)  # Orange-rot
 
     if show_prone_standing and hit_rate_standing_over_time:
         dates_standing, standing_hit_rates = zip(*hit_rate_standing_over_time)
-        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)
+        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)  # Leuchtend Grün
 
     ax.set_title('Hit Rates Over Time', fontsize=18, color='white', weight='bold', pad=20)
     ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
@@ -295,29 +293,32 @@ def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_
         return
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
     has_data = False
 
     if hit_rates_over_time:
         dates, hit_rates = zip(*hit_rates_over_time)
-        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Total Hit Rate')
+        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Total Hit Rate')  # Cyan
         has_data = True
 
     if show_prone_standing and hit_rate_prone_over_time:
         dates_prone, hit_rates_prone = zip(*hit_rate_prone_over_time)
-        ax.plot(dates_prone, hit_rates_prone, marker='o', linestyle='--', color='#FF4500', label='Prone Hit Rate')
+        ax.plot(dates_prone, hit_rates_prone, marker='o', linestyle='--', color='#FF4500', label='Prone Hit Rate')  # Orange-rot
         has_data = True
 
     if show_prone_standing and hit_rate_standing_over_time:
         dates_standing, hit_rates_standing = zip(*hit_rate_standing_over_time)
-        ax.plot(dates_standing, hit_rates_standing, marker='o', linestyle='-.', color='#32CD32', label='Standing Hit Rate')
+        ax.plot(dates_standing, hit_rates_standing, marker='o', linestyle='-.', color='#32CD32', label='Standing Hit Rate')  # Leuchtend Grün
         has_data = True
 
-    ax.set_title('Hit Rate Over Time', fontsize=18, color='white', weight='bold', pad=20)
     ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
     ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    title = 'Hit Rate Over Time'
+    if discipline_name:
+        title += f' for {discipline_name}'
+    ax.set_title(title, fontsize=18, color='white', weight='bold', pad=20)
     ax.tick_params(axis='x', rotation=45, labelsize=12, colors='white')
     ax.tick_params(axis='y', labelsize=12, colors='white')
 
@@ -338,10 +339,10 @@ def plot_discipline_comparison(discipline_stats):
     hit_rates = [discipline_stats[discipline]["hit_rate"] for discipline in disciplines]
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
-    bars = ax.bar(disciplines, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])
+    bars = ax.bar(disciplines, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])  # Gold, Tomatenrot, Leuchtgrün, Blau
     ax.set_title('Hit Rate Comparison Across Disciplines', fontsize=18, color='white', weight='bold', pad=20)
     ax.set_xlabel('Discipline', fontsize=14, color='white', labelpad=10)
     ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
@@ -363,13 +364,13 @@ def plot_wind_condition_comparison(wind_stats):
     hit_rates = [wind_stats[condition]["hit_rate"] for condition in conditions]
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
+    ax.set_facecolor('black')  # Hintergrund der Achsen
 
-    bars = ax.bar(conditions, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])
-    ax.set_title('Hit Rate Comparison Across Wind Conditions', fontsize=18, color='white', weight='bold', pad=20)
+    bars = ax.bar(conditions, hit_rates, color=['#FFD700', '#FF6347', '#7FFF00', '#1E90FF'])  # Gold, Tomatenrot, Leuchtgrün, Blau
     ax.set_xlabel('Wind Conditions', fontsize=14, color='white', labelpad=10)
     ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
+    ax.set_title('Hit Rate Comparison Across Wind Conditions', fontsize=18, color='white', weight='bold', pad=20)
     ax.set_ylim(0, 1)
     ax.tick_params(axis='x', labelsize=12, colors='white')
     ax.tick_params(axis='y', labelsize=12, colors='white')
@@ -378,6 +379,7 @@ def plot_wind_condition_comparison(wind_stats):
 
     fig.tight_layout()
     st.pyplot(fig)
+
 
 
 
