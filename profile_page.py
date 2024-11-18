@@ -22,7 +22,6 @@ def hash_password(password):
 
 # Profile page
 def profile_page():
-    st.title("Profile")
 
     if 'user' not in st.session_state:
         st.error("You need to log in to view this page.")
