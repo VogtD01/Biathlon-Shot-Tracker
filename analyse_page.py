@@ -1,6 +1,7 @@
 import analyse_functions as af
 import streamlit as st
 import os
+from datetime import datetime
 
 # Den jetzigen Benutzer auslesen oder initialisieren
 if 'user' not in st.session_state:
@@ -8,20 +9,36 @@ if 'user' not in st.session_state:
 
 user = st.session_state['user']
 
-def plot_user_hit_rate_over_time_old(user, mode=None, training_mode=None):
+"""def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
+    # Eingabefelder für Start- und Enddatum
+    start_date = st.date_input("Start Date", value=datetime(2022, 1, 1))
+    end_date = st.date_input("End Date", value=datetime.now())
+
     # Trefferquoten über die Zeit sammeln
-    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = af.collect_hit_rates(file_path, mode=mode, training_mode=training_mode)
+    result = af.collect_hit_rates(file_path, mode=mode, training_mode=training_mode)
+
+    # Überprüfen, ob die Trefferquoten gesammelt wurden
+    if result is None or len(result) != 3:
+        st.error("Fehler beim Sammeln der Trefferquoten.")
+        return
+
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = result
+
+    # Daten nach dem angegebenen Zeitraum filtern
+    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= datetime.strptime(date, "%Y-%m-%d") <= end_date]
+    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= datetime.strptime(date, "%Y-%m-%d") <= end_date]
+    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= datetime.strptime(date, "%Y-%m-%d") <= end_date]
 
     # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
     show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
 
     # Trefferquoten über die Zeit ausplotten
-    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
+    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)"""
 
-def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
+"""def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
@@ -33,7 +50,32 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+"""
+###
+def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
+    # Datei Pfad basierend auf dem Benutzer
+    file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
+    # Eingabefelder für Start- und Enddatum nebeneinander
+    col1, col2 = st.columns(2)
+    with col1:
+        start_date = st.date_input("Start Date", value=datetime(2022, 1, 1)).strftime("%Y-%m-%d")
+    with col2:
+        end_date = st.date_input("End Date", value=datetime.now()).strftime("%Y-%m-%d")
+
+    # Trefferquoten über die Zeit sammeln
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, discipline_name = af.collect_hit_rates(file_path, mode=mode, training_mode=training_mode)
+
+    # Daten nach dem angegebenen Zeitraum filtern
+    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= date <= end_date]
+    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= date <= end_date]
+    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= date <= end_date]
+
+    # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
+    show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
+
+    # Trefferquoten über die Zeit ausplotten
+    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
 def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
@@ -47,20 +89,58 @@ def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
-
+##
 def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
+    # Eingabefelder für Start- und Enddatum nebeneinander
+    col1, col2 = st.columns(2)
+    with col1:
+        start_date = st.date_input("Start Date", value=datetime(2022, 1, 1)).strftime("%Y-%m-%d")
+    with col2:
+        end_date = st.date_input("End Date", value=datetime.now()).strftime("%Y-%m-%d")
+
     # Trefferquoten über die Zeit sammeln für die gewählte Disziplin
     hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, _ = af.collect_hit_rates(file_path, discipline_name, mode=mode, training_mode=training_mode)
+
+    # Daten nach dem angegebenen Zeitraum filtern
+    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= date <= end_date]
+    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= date <= end_date]
+    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= date <= end_date]
 
     # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
     show_prone_standing = st.checkbox(f"Show Prone/Standing Hit Rate for {discipline_name}", value=True)
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
-    
+##
+def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
+    # Datei Pfad basierend auf dem Benutzer
+    file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
+
+    # Eingabefelder für Start- und Enddatum nebeneinander
+    col1, col2 = st.columns(2)
+    with col1:
+        start_date = st.date_input("Start Date", value=datetime(2024, 1, 1), key=f"start_date_{discipline_name}").strftime("%Y-%m-%d")
+    with col2:
+        end_date = st.date_input("End Date", value=datetime.now(), key=f"end_date_{discipline_name}").strftime("%Y-%m-%d")
+
+    # Trefferquoten über die Zeit sammeln für die gewählte Disziplin
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, _ = af.collect_hit_rates(file_path, discipline_name, mode=mode, training_mode=training_mode)
+
+    # Daten nach dem angegebenen Zeitraum filtern
+    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= date <= end_date]
+    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= date <= end_date]
+    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= date <= end_date]
+
+    # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
+    show_prone_standing = st.checkbox(f"Show Prone/Standing Hit Rate for {discipline_name}", value=True, key=f"checkbox_{discipline_name}")
+
+    # Trefferquoten über die Zeit ausplotten
+    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+
+
 def plot_discipline_comparison(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
