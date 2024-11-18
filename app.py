@@ -20,11 +20,9 @@ def app():
 
     if selected == 'Input Data':
         st.title("Input Data")
-        st.write("This is the input data page.")
         page1() 
     elif selected == 'Statistics/Graphs':
         st.title("Statistics/Graphs")
-        st.write("This is the statistics/graphs page.")
         if 'user' not in st.session_state:
             st.session_state['user'] = {'first_name': 'Default', 'last_name': 'User'}  # Beispielwerte, anpassen wie nötig
         user = st.session_state['user']
