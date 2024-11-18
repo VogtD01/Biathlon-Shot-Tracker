@@ -2,6 +2,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import json
 import os
+import matplotlib.pyplot as plt
+import analyse_page as ap
 
 # Load athletes from a JSON file
 def load_athletes():
@@ -69,7 +71,20 @@ def show_team():
         st.write("No athletes in your team yet.")
 
 def show_stats():
-    st.write("Stats page is under construction.")
+     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
+        athlete_names = [f"{athlete['first_name']} {athlete['last_name']}" for athlete in st.session_state.trainer_team]
+        selected_athlete_name = st.selectbox("Select Athlete", athlete_names)
+
+        selected_athlete = next((athlete for athlete in st.session_state.trainer_team if f"{athlete['first_name']} {athlete['last_name']}" == selected_athlete_name), None)
+
+        if selected_athlete:
+            st.write(f"Showing stats for {selected_athlete['first_name']} {selected_athlete['last_name']}")
+
+            ap.main(selected_athlete)
+        else:
+            st.write("No stats available for the selected athlete.")
+     else:
+        st.write("No athletes in your team yet.")
 
 def team_management(trainer_name):
     # Load all athletes
