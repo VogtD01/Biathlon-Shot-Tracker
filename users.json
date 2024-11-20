@@ -79,5 +79,14 @@
         "height": 0,
         "weight": 0,
         "password": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+        "first_name": "Dominic",
+        "last_name": "Vogt",
+        "email": "dominic@biathlontracker.de",
+        "gender": "Male",
+        "height": 188,
+        "weight": 78,
+        "password": "5b9ccce4a61b723926e42217fed468ee5df71d20b403754dd091e4a90f907518"
     }
 ]
