@@ -145,6 +145,11 @@ def team_management(trainer_name):
         save_trainer_team(st.session_state.trainer_team, trainer_name)
         st.success("Selected athletes removed successfully!")
 
+    if st.button("Log Out"):
+        st.session_state.logged_in = False
+        st.session_state.user = None
+        st.rerun()
+
 # Example users.json content:
 # [
 #     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
