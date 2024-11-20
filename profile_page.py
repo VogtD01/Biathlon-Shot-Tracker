@@ -2,6 +2,8 @@ import streamlit as st
 import json
 import hashlib
 import os
+import analyse_functions as af
+from trainer_app import get_color_for_hit_rate
 
 # Function to load user data
 def load_users():
@@ -44,6 +46,51 @@ def profile_page():
         st.write(f"**Gender:** {user.get('gender', 'Male')}")
         st.write(f"**Height:** {user.get('height', 0)} cm")
         st.write(f"**Weight:** {user.get('weight', 0)} kg")
+
+    
+
+    st.markdown("---")  # Trennlinie zwischen den Athleten
+
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+           
+
+            # Lade die Statistiken des Athleten
+            statistics_file = f"JSON/biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json"
+            try:
+                with open(statistics_file, 'r') as file:
+                    statistics = json.load(file)
+                total_shots = af.calculate_total_shots(statistics)
+                total_prone_errors = af.calculate_prone_errors(statistics)
+                total_standing_errors = af.calculate_standing_errors(statistics)
+                overall_hit_rate, prone_hit_rate, standing_hit_rate = af.calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors)
+
+                st.write(f"Total Shots: {total_shots}")
+                st.write(f"Total Errors: {total_prone_errors + total_standing_errors}")
+            except FileNotFoundError:
+                st.write("No statistics available for this athlete.")
+                total_shots = None
+                total_prone_errors = None
+                total_standing_errors = None
+                overall_hit_rate = None
+                prone_hit_rate = None
+                standing_hit_rate = None
+    with col2:
+        if overall_hit_rate is not None:
+            st.write(f"Overall Hit Rate: {overall_hit_rate:.2%}")
+            st.write(f"Prone Hit Rate: {prone_hit_rate:.2%}")
+            st.write(f"Standing Hit Rate: {standing_hit_rate:.2%}")
+        else:
+            st.write("No hit rate data available.")
+    with col3:
+        if overall_hit_rate is not None:
+            st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(overall_hit_rate)}'></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(prone_hit_rate)}'></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='width: 30px; height: 30px; background-color: {get_color_for_hit_rate(standing_hit_rate)}'></div>", unsafe_allow_html=True)
+        else:
+            st.write("")
+  
+
 
     with st.expander("Update Profile Information"):
         st.subheader("Update Profile Information")
