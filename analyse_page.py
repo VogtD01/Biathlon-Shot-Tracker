@@ -34,6 +34,7 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
+    af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
 def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
