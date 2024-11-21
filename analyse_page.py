@@ -40,10 +40,13 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
     avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
 
-    # Durchschnittswerte anzeigen
-    st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
-    st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
-    st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
+    # Durchschnittswerte anzeigen, wenn sie nicht 0 sind
+    if avg_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
+    if avg_prone_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
+    if avg_standing_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
     
     af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
@@ -106,10 +109,13 @@ def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=Non
     avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
     avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
 
-    # Durchschnittswerte anzeigen
-    st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
-    st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
-    st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
+     # Durchschnittswerte anzeigen, wenn sie nicht 0 sind
+    if avg_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
+    if avg_prone_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
+    if avg_standing_hit_rate != 0:
+        st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
     
     # Trefferquoten smooth ausplotten
     af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
