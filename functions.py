@@ -108,17 +108,20 @@ def biathlon_stats_komplex(date, mode, training_mode):
             standing_hit_rate_day = ((total_shots // 2 - total_standing_errors) / (total_shots // 2)) * 100
         else:
             overall_hit_rate = prone_hit_rate_day = standing_hit_rate_day = 0
-
-        # Tageszusammenfassung anzeigen
-        st.write(f"**Daily Summary ({date.strftime('%Y-%m-%d')}):**")
-        st.write("Total shots:", total_shots)
-        st.write("Total prone errors:", total_prone_errors)
-        st.write("Total standing errors:", total_standing_errors)
-        st.write("Overall hit rate:", round(overall_hit_rate, 2), "%")
-        st.write("Prone hit rate for the day:", round(prone_hit_rate_day, 2), "%")
-        st.write("Standing hit rate for the day:", round(standing_hit_rate_day, 2), "%")
-
         
+        st.write(f"**Daily Summary ({date.strftime('%Y-%m-%d')}):**")
+        col1, col2 = st.columns(2)
+        with col1:
+        # Tageszusammenfassung anzeigen
+            st.write("Total shots:", total_shots)
+            st.write("Total prone errors:", total_prone_errors)
+            st.write("Total standing errors:", total_standing_errors)
+        with col2:
+            st.write("Overall hit rate:", round(overall_hit_rate, 2), "%")
+            st.write("Prone hit rate for the day:", round(prone_hit_rate_day, 2), "%")
+            st.write("Standing hit rate for the day:", round(standing_hit_rate_day, 2), "%")
+
+            
         
         if st.button("Save all data"):
             # Prüfen, ob der Benutzer eingeloggt ist

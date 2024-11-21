@@ -34,9 +34,21 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
+    
+     # Durchschnittswerte berechnen
+    avg_hit_rate = calculate_average(hit_rates_over_time) *100
+    avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
+    avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
+
+    # Durchschnittswerte anzeigen
+    st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
+    st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
+    st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
+    
     af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
-def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
+"""def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
+
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
 
@@ -60,6 +72,9 @@ def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+    af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+"""
+
 
 def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
@@ -85,7 +100,20 @@ def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=Non
 
     # Trefferquoten über die Zeit ausplotten
     af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+    
+     # Durchschnittswerte berechnen
+    avg_hit_rate = calculate_average(hit_rates_over_time) *100
+    avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
+    avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
 
+    # Durchschnittswerte anzeigen
+    st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
+    st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
+    st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
+    
+    # Trefferquoten smooth ausplotten
+    af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
+    
 def plot_discipline_comparison(user, mode=None, training_mode=None):
     # Datei Pfad basierend auf dem Benutzer
     file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
@@ -101,6 +129,10 @@ def plot_wind_condition_comparison(user, mode=None, training_mode=None):
     # Windbedingungen vergleichen
     wind_stats = af.compare_wind_conditions(file_path, mode=mode, training_mode=training_mode)
     af.plot_wind_condition_comparison(wind_stats)
+
+def calculate_average(hit_rates):
+        return sum(rate for _, rate in hit_rates) / len(hit_rates) if hit_rates else 0
+
 
 # Hauptfunktion
 def main(user):

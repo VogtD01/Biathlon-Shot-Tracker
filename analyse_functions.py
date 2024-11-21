@@ -49,6 +49,8 @@ def calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors):
     standing_hit_rate = 1 - total_standing_errors / (total_shots/2)
     return overall_hit_rate, prone_hit_rate, standing_hit_rate
 
+#--------------------------------------------------------------
+
 def analyze_discipline(file_path, discipline_name=None, mode=None, training_mode=None, wind_condition=None):
     statistics = load_statistics(file_path)
     if not statistics:
@@ -100,7 +102,7 @@ def collect_overall_hit_rates(file_path):
 
     return overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time
 
-def collect_hit_rates_old(file_path, discipline_name=None, mode=None, training_mode=None):
+"""def collect_hit_rates_old(file_path, discipline_name=None, mode=None, training_mode=None):
     statistics = load_statistics(file_path)
     if not statistics:
         return [], [], []
@@ -136,6 +138,7 @@ def collect_hit_rates_old(file_path, discipline_name=None, mode=None, training_m
     avg_hit_rate_standing_over_time = [(date, sum(rates) / len(rates)) for date, rates in hit_rate_standing_over_time.items()]
 
     return avg_hit_rates_over_time, avg_hit_rate_prone_over_time, avg_hit_rate_standing_over_time
+"""
 
 def collect_hit_rates(file_path, discipline_name=None, mode=None, training_mode=None):
     statistics = load_statistics(file_path)
@@ -222,7 +225,6 @@ def compare_wind_conditions(file_path, mode=None, training_mode=None):
 
 
 
-
 sns.set_theme(style="darkgrid")  # Stil für dunkles Design mit Gitter
 
 def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time=None, standing_hit_rates_over_time=None, show_prone_standing=False):
@@ -257,7 +259,7 @@ def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_tim
     fig.tight_layout()
     st.pyplot(fig)
 
-def plot_hit_rates_old(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=True):
+"""def plot_hit_rates_old(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=True):
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
         st.write("No data available to plot.")
         return
@@ -287,7 +289,7 @@ def plot_hit_rates_old(hit_rates_over_time, hit_rate_prone_over_time=None, hit_r
     ax.grid(visible=True, linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
 
     fig.tight_layout()
-    st.pyplot(fig)
+    st.pyplot(fig)"""
 
 def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=False, discipline_name=None):
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):

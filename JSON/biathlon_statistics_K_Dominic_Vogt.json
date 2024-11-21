@@ -615,24 +615,24 @@
         "Wind Conditions": "Light Wind",
         "Daily Summary": {
             "Total Shots": 20,
-            "Prone Errors": 4,
-            "Standing Errors": 0,
+            "Prone Errors": 2,
+            "Standing Errors": 2,
             "Overall Hit Rate": 80.0,
-            "Prone Hit Rate": 60.0,
-            "Standing Hit Rate": 100.0
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 80.0
         },
         "Discipline Details": [
             {
                 "Discipline": "Individual",
                 "Instance": 1,
                 "Errors": {
-                    "Prone": 4,
-                    "Standing": 0
+                    "Prone": 2,
+                    "Standing": 2
                 },
                 "Hit Rates": {
                     "Total": 80.0,
-                    "Prone": 60.0,
-                    "Standing": 100.0
+                    "Prone": 80.0,
+                    "Standing": 80.0
                 }
             }
         ]
