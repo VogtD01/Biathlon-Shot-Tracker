@@ -1,0 +1,289 @@
+[
+    {
+        "Date": "2024-11-21",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 40,
+            "Prone Errors": 5,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 85.0,
+            "Prone Hit Rate": 75.0,
+            "Standing Hit Rate": 95.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 80.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Mass Start",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 3,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 70.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-21",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 1,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 80.0,
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 80.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-19",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 3,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 60.0,
+            "Prone Hit Rate": 40.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 3,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 60.0,
+                    "Prone": 40.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-29",
+        "Mode": "Competition",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 1,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 80.0,
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 80.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-29",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 30,
+            "Prone Errors": 3,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 100.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Mass Start",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 3,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 70.0,
+                    "Standing": 100.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 100.0,
+                    "Prone": 100.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-21",
+        "Mode": "Competition",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 2,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 80.0,
+            "Standing Hit Rate": 100.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Mass Start",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 80.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-30",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 0,
+            "Standing Errors": 2,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 100.0,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 100.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-29",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 2,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 80.0,
+            "Prone Hit Rate": 60.0,
+            "Standing Hit Rate": 100.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 2,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 60.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2024-11-04",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 10,
+            "Prone Errors": 3,
+            "Standing Errors": 0,
+            "Overall Hit Rate": 70.0,
+            "Prone Hit Rate": 40.0,
+            "Standing Hit Rate": 100.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 3,
+                    "Standing": 0
+                },
+                "Hit Rates": {
+                    "Total": 70.0,
+                    "Prone": 40.0,
+                    "Standing": 100.0
+                }
+            }
+        ]
+    }
+]

@@ -1,14 +1,5 @@
 [
     {
-        "first_name": "Dominic",
-        "last_name": "Vogt",
-        "email": "vd6806@mci4me.at",
-        "gender": "Male",
-        "height": 188,
-        "weight": 77,
-        "password": "1bd2f6efec083a3a192288c204c8b14f66911f32dfc9a9f6d9a81119ce57965a"
-    },
-    {
         "first_name": "Florian",
         "last_name": "Schrottenbaum",
         "email": "f.schrottenbaum@mci4me.at",
@@ -18,12 +9,12 @@
         "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
     },
     {
-        "first_name": "Christian",
-        "last_name": "Kleber",
-        "email": "ch.kleber@mci4me.at",
+        "first_name": "Dominic",
+        "last_name": "Vogt",
+        "email": "dominic@biathlontracker.de",
         "gender": "Male",
-        "height": 180,
-        "weight": 75,
-        "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        "height": 188,
+        "weight": 78,
+        "password": "5b9ccce4a61b723926e42217fed468ee5df71d20b403754dd091e4a90f907518"
     }
 ]

@@ -96,8 +96,50 @@ def show_team():
         st.write("No athletes in your team yet.")
 
 def show_stats():
-     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
+    if 'trainer_team' in st.session_state and st.session_state.trainer_team:
         athlete_names = [f"{athlete['first_name']} {athlete['last_name']}" for athlete in st.session_state.trainer_team]
+        
+        # Berechnung der durchschnittlichen Trefferquote des gesamten Teams
+        total_hit_rate = 0
+        total_prone_hit_rate = 0
+        total_standing_hit_rate = 0
+        total_athletes = 0
+
+        for athlete in st.session_state.trainer_team:
+            statistics_file = f"JSON/biathlon_statistics_K_{athlete['first_name']}_{athlete['last_name']}.json"
+            try:
+                with open(statistics_file, 'r') as file:
+                    statistics = json.load(file)
+                total_shots = af.calculate_total_shots(statistics)
+                total_prone_errors = af.calculate_prone_errors(statistics)
+                total_standing_errors = af.calculate_standing_errors(statistics)
+                overall_hit_rate, prone_hit_rate, standing_hit_rate = af.calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors)
+                total_hit_rate += overall_hit_rate
+                total_prone_hit_rate += prone_hit_rate
+                total_standing_hit_rate += standing_hit_rate
+                total_athletes += 1
+            except FileNotFoundError:
+                continue
+
+        if total_athletes > 0:
+            avg_team_hit_rate = (total_hit_rate / total_athletes) * 100
+            avg_team_prone_hit_rate = (total_prone_hit_rate / total_athletes) * 100
+            avg_team_standing_hit_rate = (total_standing_hit_rate / total_athletes) * 100
+        else:
+            avg_team_hit_rate = 0
+            avg_team_prone_hit_rate = 0
+            avg_team_standing_hit_rate = 0
+
+        # Anzeigen der Teamstatistiken
+        st.subheader("Team Stats")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"Mean Team Hitrate: {avg_team_hit_rate:.2f}%")
+            
+        with col2:
+            st.write(f"Mean Team Hitrate Prone: {avg_team_prone_hit_rate:.2f}%")
+            st.write(f"Mean Team Hitrate Standing: {avg_team_standing_hit_rate:.2f}%")
+        
         selected_athlete_name = st.selectbox("Select Athlete", athlete_names)
 
         selected_athlete = next((athlete for athlete in st.session_state.trainer_team if f"{athlete['first_name']} {athlete['last_name']}" == selected_athlete_name), None)
@@ -108,9 +150,9 @@ def show_stats():
             ap.main(selected_athlete)
         else:
             st.write("No stats available for the selected athlete.")
-     else:
+    else:
         st.write("No athletes in your team yet.")
-
+        
 def team_management(trainer_name):
     # Load all athletes
     athletes = load_athletes()

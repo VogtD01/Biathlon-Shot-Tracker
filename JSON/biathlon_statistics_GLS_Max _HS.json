@@ -1,0 +1,22 @@
+[
+    {
+        "Date": "2024-11-21",
+        "Mode": "Training",
+        "Trainings_mode": "GLS",
+        "Wind Conditions": "Calm",
+        "Prone Shooting Summary": {
+            "Total Shots": 50,
+            "Total Errors": 2,
+            "Total Outliers": 0,
+            "Hit Rate": 96.0,
+            "Outlier + Error Rate": 96.0
+        },
+        "Standing Shooting Summary": {
+            "Total Shots": 60,
+            "Total Errors": 1,
+            "Total Below Ring 7": 2,
+            "Hit Rate": 98.33,
+            "Below Ring 7 + Error Rate": 95.0
+        }
+    }
+]

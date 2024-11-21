@@ -17,7 +17,7 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     # Eingabefelder für Start- und Enddatum nebeneinander
     col1, col2 = st.columns(2)
     with col1:
-        start_date = st.date_input("Start Date", value=datetime(2024, 1, 1)).strftime("%Y-%m-%d")
+        start_date = st.date_input("Start Date", value=datetime(2021, 1, 1)).strftime("%Y-%m-%d")
     with col2:
         end_date = st.date_input("End Date", value=datetime.now()).strftime("%Y-%m-%d")
 
@@ -86,7 +86,7 @@ def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=Non
     # Eingabefelder für Start- und Enddatum nebeneinander
     col1, col2 = st.columns(2)
     with col1:
-        start_date = st.date_input("Start Date", value=datetime(2024, 1, 1), key=f"start_date_{discipline_name}").strftime("%Y-%m-%d")
+        start_date = st.date_input("Start Date", value=datetime(2021, 1, 1), key=f"start_date_{discipline_name}").strftime("%Y-%m-%d")
     with col2:
         end_date = st.date_input("End Date", value=datetime.now(), key=f"end_date_{discipline_name}").strftime("%Y-%m-%d")
 
