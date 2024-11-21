@@ -1,0 +1,44 @@
+[
+    {
+        "Date": "2024-11-07",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Windy",
+        "Daily Summary": {
+            "Total Shots": 30,
+            "Prone Errors": 1,
+            "Standing Errors": 3,
+            "Overall Hit Rate": 86.67,
+            "Prone Hit Rate": 93.33,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 90.0,
+                    "Standing": 80.0
+                }
+            },
+            {
+                "Discipline": "Sprint",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 100.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    }
+]
