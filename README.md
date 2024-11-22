@@ -57,3 +57,17 @@ Hier sind die Schritte, um die Anwendung auf Ihrem lokalen Computer auszuführen
    ```sh
    streamlit run app.py
    ```
+
+7. **Beispieldaten ansehen**
+   Verwenden Sie das Athleten-Login oder das Trainer-Login, um bereits eingegebene Daten ansehen zu können:
+
+   **Zugangsdaten Athlet:**
+   - **Email:** dominic@biathlontracker.de
+   - **Passwort:** 2601
+
+   **Zugangsdaten Trainer:**
+   - **Email:** huber@gmail.de
+   - **Passwort:** test
+
+8. Die Seite kann alternativ auch über den folgenden Link direkt ohne lokale Entwicklungsumgebung aufgerufen werden:
+   [Biathlon Shot Tracker](https://biathlon-shot-tracker-nugzjq9knyderdqrtt5yfm.streamlit.app/)
