@@ -1274,5 +1274,283 @@
                 }
             }
         ]
+    },
+    {
+        "Date": "2021-11-23",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 20,
+            "Prone Errors": 1,
+            "Standing Errors": 1,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 90.0,
+            "Standing Hit Rate": 90.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 90.0,
+                    "Standing": 90.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2021-12-01",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 60,
+            "Prone Errors": 1,
+            "Standing Errors": 3,
+            "Overall Hit Rate": 93.33,
+            "Prone Hit Rate": 96.67,
+            "Standing Hit Rate": 90.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 95.0,
+                    "Prone": 100.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 95.0,
+                    "Prone": 100.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 3,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 90.0,
+                    "Standing": 90.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2021-12-22",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 60,
+            "Prone Errors": 2,
+            "Standing Errors": 4,
+            "Overall Hit Rate": 90.0,
+            "Prone Hit Rate": 93.33,
+            "Standing Hit Rate": 86.67
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 90.0,
+                    "Standing": 80.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 95.0,
+                    "Prone": 100.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 3,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 90.0,
+                    "Standing": 90.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2022-03-09",
+        "Mode": "Training",
+        "Trainings_mode": "TNS",
+        "Wind Conditions": "Calm",
+        "Daily Summary": {
+            "Total Shots": 60,
+            "Prone Errors": 1,
+            "Standing Errors": 3,
+            "Overall Hit Rate": 93.33,
+            "Prone Hit Rate": 96.67,
+            "Standing Hit Rate": 90.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 95.0,
+                    "Prone": 100.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 0,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 95.0,
+                    "Prone": 100.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Individual",
+                "Instance": 3,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 90.0,
+                    "Standing": 90.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2022-03-09",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Light Wind",
+        "Daily Summary": {
+            "Total Shots": 40,
+            "Prone Errors": 2,
+            "Standing Errors": 3,
+            "Overall Hit Rate": 87.5,
+            "Prone Hit Rate": 90.0,
+            "Standing Hit Rate": 85.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Individual",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 90.0,
+                    "Prone": 90.0,
+                    "Standing": 90.0
+                }
+            },
+            {
+                "Discipline": "Mass Start",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 90.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
+    },
+    {
+        "Date": "2022-03-23",
+        "Mode": "Training",
+        "Trainings_mode": "Komplex",
+        "Wind Conditions": "Windy",
+        "Daily Summary": {
+            "Total Shots": 30,
+            "Prone Errors": 2,
+            "Standing Errors": 3,
+            "Overall Hit Rate": 83.33,
+            "Prone Hit Rate": 86.67,
+            "Standing Hit Rate": 80.0
+        },
+        "Discipline Details": [
+            {
+                "Discipline": "Sprint",
+                "Instance": 1,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 1
+                },
+                "Hit Rates": {
+                    "Total": 80.0,
+                    "Prone": 80.0,
+                    "Standing": 80.0
+                }
+            },
+            {
+                "Discipline": "Pursuit",
+                "Instance": 2,
+                "Errors": {
+                    "Prone": 1,
+                    "Standing": 2
+                },
+                "Hit Rates": {
+                    "Total": 85.0,
+                    "Prone": 90.0,
+                    "Standing": 80.0
+                }
+            }
+        ]
     }
 ]

@@ -40,43 +40,16 @@ def plot_user_hit_rate_over_time(user, mode=None, training_mode=None):
     avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
     avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
 
-    # Durchschnittswerte anzeigen, wenn sie nicht 0 sind
+   # Display average values if they are not 0
     if avg_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
+        st.write(f"Average Hit Rate: {avg_hit_rate:.2f}%")
     if avg_prone_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
+        st.write(f"Average Prone Hit Rate: {avg_prone_hit_rate:.2f}%")
     if avg_standing_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
+        st.write(f"Average Standing Hit Rate: {avg_standing_hit_rate:.2f}%")
     
     af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing)
 
-"""def plot_discipline_hit_rate_old(user, discipline_name, mode=None, training_mode=None):
-
-    # Datei Pfad basierend auf dem Benutzer
-    file_path = os.path.join("JSON", f"biathlon_statistics_K_{user['first_name']}_{user['last_name']}.json")
-
-    # Eingabefelder für Start- und Enddatum nebeneinander
-    col1, col2 = st.columns(2)
-    with col1:
-        start_date = st.date_input("Start Date", value=datetime(2022, 1, 1)).strftime("%Y-%m-%d")
-    with col2:
-        end_date = st.date_input("End Date", value=datetime.now()).strftime("%Y-%m-%d")
-
-    # Trefferquoten über die Zeit sammeln für die gewählte Disziplin
-    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, _ = af.collect_hit_rates(file_path, discipline_name, mode=mode, training_mode=training_mode)
-
-    # Daten nach dem angegebenen Zeitraum filtern
-    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= date <= end_date]
-    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= date <= end_date]
-    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= date <= end_date]
-
-    # Checkbox für das Anzeigen der Prone/Standing Trefferquoten
-    show_prone_standing = st.checkbox(f"Show Prone/Standing Hit Rate for {discipline_name}", value=True)
-
-    # Trefferquoten über die Zeit ausplotten
-    af.plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
-    af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
-"""
 
 
 def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=None):
@@ -109,14 +82,14 @@ def plot_discipline_hit_rate(user, discipline_name, mode=None, training_mode=Non
     avg_prone_hit_rate = calculate_average(hit_rate_prone_over_time) *100
     avg_standing_hit_rate = calculate_average(hit_rate_standing_over_time) *100
 
-     # Durchschnittswerte anzeigen, wenn sie nicht 0 sind
-    if avg_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote: {avg_hit_rate:.2f}%")
-    if avg_prone_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote Liegend: {avg_prone_hit_rate:.2f}%")
-    if avg_standing_hit_rate != 0:
-        st.write(f"Durchschnittliche Trefferquote Stehend: {avg_standing_hit_rate:.2f}%")
     
+    # Display average values if they are not 0
+    if avg_hit_rate != 0:
+        st.write(f"Average Hit Rate: {avg_hit_rate:.2f}%")
+    if avg_prone_hit_rate != 0:
+        st.write(f"Average Prone Hit Rate: {avg_prone_hit_rate:.2f}%")
+    if avg_standing_hit_rate != 0:
+        st.write(f"Average Standing Hit Rate: {avg_standing_hit_rate:.2f}%")
     # Trefferquoten smooth ausplotten
     af.plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing, discipline_name)
     
