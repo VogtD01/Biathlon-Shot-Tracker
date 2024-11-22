@@ -202,7 +202,7 @@ def biathlon_stats_gls(date, mode, training_mode):
     cols = st.columns(3)
     total_shots_standing = cols[0].number_input("Enter the total number of shots (standing):", min_value=0, step=1)
     total_errors_standing = cols[1].number_input("Enter the total number of errors (standing):", min_value=0, step=1)
-    total_below_ring7 = cols[2].number_input("Enter the total number of shots below Ring 7 (standing):", min_value=0, step=1)
+    total_below_ring7 = cols[2].number_input("Enter the total number of shots below Ring 5 (standing):", min_value=0, step=1)
 
     if total_shots_standing > 0:
         # Berechnung der Trefferleistung

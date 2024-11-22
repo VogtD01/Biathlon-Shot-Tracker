@@ -102,43 +102,6 @@ def collect_overall_hit_rates(file_path):
 
     return overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time
 
-"""def collect_hit_rates_old(file_path, discipline_name=None, mode=None, training_mode=None):
-    statistics = load_statistics(file_path)
-    if not statistics:
-        return [], [], []
-
-    hit_rates_over_time = defaultdict(list)
-    hit_rate_prone_over_time = defaultdict(list)
-    hit_rate_standing_over_time = defaultdict(list)
-
-    for entry in statistics:
-        if "Discipline Details" in entry:
-            for discipline in entry["Discipline Details"]:
-                if (discipline_name is None or discipline["Discipline"] == discipline_name):
-                    if (mode is None or entry["Mode"] == mode) and (training_mode is None or entry["Trainings_mode"] == training_mode):
-                        shots_per_instance = 10 if discipline["Discipline"] == "Sprint" else 20
-                        total_shots = shots_per_instance
-                        total_prone_errors = discipline["Errors"]["Prone"]
-                        total_standing_errors = discipline["Errors"]["Standing"]
-
-                        if total_shots > 0:
-                            hit_rate = 1 - (total_prone_errors + total_standing_errors) / total_shots
-                            hit_rate_prone = 1 - total_prone_errors / (total_shots / 2)
-                            hit_rate_standing = 1 - total_standing_errors / (total_shots / 2)
-                        else:
-                            hit_rate = hit_rate_prone = hit_rate_standing = 0
-
-                        hit_rates_over_time[entry["Date"]].append(hit_rate)
-                        hit_rate_prone_over_time[entry["Date"]].append(hit_rate_prone)
-                        hit_rate_standing_over_time[entry["Date"]].append(hit_rate_standing)
-
-    # Durchschnitt der Trefferquoten für jedes Datum berechnen
-    avg_hit_rates_over_time = [(date, sum(rates) / len(rates)) for date, rates in hit_rates_over_time.items()]
-    avg_hit_rate_prone_over_time = [(date, sum(rates) / len(rates)) for date, rates in hit_rate_prone_over_time.items()]
-    avg_hit_rate_standing_over_time = [(date, sum(rates) / len(rates)) for date, rates in hit_rate_standing_over_time.items()]
-
-    return avg_hit_rates_over_time, avg_hit_rate_prone_over_time, avg_hit_rate_standing_over_time
-"""
 
 def collect_hit_rates(file_path, discipline_name=None, mode=None, training_mode=None):
     statistics = load_statistics(file_path)
@@ -259,37 +222,6 @@ def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_tim
     fig.tight_layout()
     st.pyplot(fig)
 
-"""def plot_hit_rates_old(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=True):
-    if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
-        st.write("No data available to plot.")
-        return
-
-    fig, ax = plt.subplots(figsize=(10, 5))
-    fig.patch.set_facecolor('black')  # Hintergrund des gesamten Plots
-    ax.set_facecolor('black')  # Hintergrund der Achsen
-
-    if hit_rates_over_time:
-        dates, hit_rates = zip(*hit_rates_over_time)
-        ax.plot(dates, hit_rates, marker='o', linestyle='-', color='#00FFFF', label='Overall Hit Rate', linewidth=2)  # Cyan
-
-    if show_prone_standing and hit_rate_prone_over_time:
-        dates_prone, prone_hit_rates = zip(*hit_rate_prone_over_time)
-        ax.plot(dates_prone, prone_hit_rates, marker='s', linestyle='--', color='#FF4500', label='Prone Hit Rate', linewidth=1.5)  # Orange-rot
-
-    if show_prone_standing and hit_rate_standing_over_time:
-        dates_standing, standing_hit_rates = zip(*hit_rate_standing_over_time)
-        ax.plot(dates_standing, standing_hit_rates, marker='d', linestyle='-.', color='#32CD32', label='Standing Hit Rate', linewidth=1.5)  # Leuchtend Grün
-
-    ax.set_title('Hit Rates Over Time', fontsize=18, color='white', weight='bold', pad=20)
-    ax.set_xlabel('Date', fontsize=14, color='white', labelpad=10)
-    ax.set_ylabel('Hit Rate (%)', fontsize=14, color='white', labelpad=10)
-    ax.tick_params(axis='x', rotation=45, labelsize=12, colors='white')
-    ax.tick_params(axis='y', labelsize=12, colors='white')
-    ax.legend(loc='upper left', fontsize=12, frameon=False, facecolor='black', edgecolor='black', labelcolor='white')
-    ax.grid(visible=True, linestyle='--', linewidth=0.5, alpha=0.7, color='gray')
-
-    fig.tight_layout()
-    st.pyplot(fig)"""
 
 def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=False, discipline_name=None):
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
