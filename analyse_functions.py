@@ -378,54 +378,40 @@ def plot_wind_condition_comparison(wind_stats):
     fig.tight_layout()
     st.pyplot(fig)
 
-# --- Main Fuction only for testing issues --------------------------------------------------------------------------------------------------------------
+# --- Main Fuction only for the Report figures--------------------------------------------------------------------------------------------------------------
+
+
 def main():
-    # nur tests hier
+    file_path = os.path.join("JSON", f"biathlon_statistics_K_Dominic_Vogt.json")
 
+    mode = "Competition"
+    start_date = "2022-01-01"  # Example start date
+    end_date = "2023-12-31"    # Example end date
 
-    st.title("Biathlon Statistics")
+    # Collect hit rates over time
+    hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, discipline_name = collect_hit_rates(file_path, mode=mode) #training_mode=training_mode
 
-    file_path = os.path.join("JSON", "biathlon_statistics_K_DV_01.json")
-    statistics = load_statistics(file_path)
+    # Filter data by the specified date range
+    hit_rates_over_time = [(date, rate) for date, rate in hit_rates_over_time if start_date <= date <= end_date]
+    hit_rate_prone_over_time = [(date, rate) for date, rate in hit_rate_prone_over_time if start_date <= date <= end_date]
+    hit_rate_standing_over_time = [(date, rate) for date, rate in hit_rate_standing_over_time if start_date <= date <= end_date]
 
-    if statistics:
-        
-        # schreiben dass jetzt die Hitrate geplottet wird
-        st.write("Hitrate wird geplottet von allem")
-        hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time = collect_hit_rates(file_path)
+    # Create directory for images if it doesn't exist
+    output_dir = "Images_for_report"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
-        #show_prone_standing = st.checkbox("Show Prone/Standing Hit Rate", value=True)
-        plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time)
+    # Plot hit rates
+    plt.figure(figsize=(12, 6))  # Set figure size for high quality
+    plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing=True, discipline_name="competition")
+    plt.savefig(os.path.join(output_dir, "hit_rates_plot.png"), dpi=300, bbox_inches='tight')  # Save with high DPI
+    plt.close()  # Close the figure to free memory
 
-        # schreiben hitrate nur alle einzelnen Disziplinen
-        st.write("Hitrate wird geplottet von einzel")
-        hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual = collect_hit_rates(file_path, "Individual")
-        plot_hit_rates(hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual)
-
-        
-        st.write("Hitrate wird geplottet von Training TNS")
-        hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS = collect_hit_rates(file_path, training_mode="TNS")
-        plot_hit_rates(hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS)
-
-
-        # Compare disciplines
-        st.write("discipline comparison")
-        discipline_stats = compare_disciplines(file_path)
-        plot_discipline_comparison(discipline_stats)
-
-        # Compare wind conditions globally across all disciplines
-        st.write("wind condition comparison")
-        wind_stats = compare_wind_conditions(file_path)
-        plot_wind_condition_comparison(wind_stats)
-
-     
-        st.write("overall hit rates")
-        overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time = collect_overall_hit_rates(file_path)
-        
-        plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time)
-
+    # Plot smooth hit rates
+    plt.figure(figsize=(12, 6))  # Set figure size for high quality
+    plot_smoothed_hit_rates(hit_rates_over_time, hit_rate_prone_over_time, hit_rate_standing_over_time, show_prone_standing=True, discipline_name="competition")
+    plt.savefig(os.path.join(output_dir, "smooth_hit_rates_plot.png"), dpi=300, bbox_inches='tight')  # Save with high DPI
+    plt.close()  # Close the figure to free memory
 
 if __name__ == "__main__":
     main()
-
-    
