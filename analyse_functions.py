@@ -8,7 +8,7 @@ import seaborn as sns
 from scipy.interpolate import make_interp_spline
 import numpy as np
 
-
+#---Calculate Functions--------------------------------------------------------------------------------------------------------------
 def load_statistics(file_path):
     if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
         with open(file_path, "r") as file:
@@ -49,7 +49,7 @@ def calculate_hit_rate(total_shots, total_prone_errors, total_standing_errors):
     standing_hit_rate = 1 - total_standing_errors / (total_shots/2)
     return overall_hit_rate, prone_hit_rate, standing_hit_rate
 
-#--------------------------------------------------------------
+#---Analyse Functions--------------------------------------------------------------
 
 def analyze_discipline(file_path, discipline_name=None, mode=None, training_mode=None, wind_condition=None):
     statistics = load_statistics(file_path)
@@ -101,7 +101,6 @@ def collect_overall_hit_rates(file_path):
         standing_hit_rates_over_time.append((date, standing_hit_rate))
 
     return overall_hit_rates_over_time, prone_hit_rates_over_time, standing_hit_rates_over_time
-
 
 def collect_hit_rates(file_path, discipline_name=None, mode=None, training_mode=None):
     statistics = load_statistics(file_path)
@@ -187,7 +186,7 @@ def compare_wind_conditions(file_path, mode=None, training_mode=None):
     return wind_stats
 
 
-
+#--- Plot Functions--------------------------------------------------------------------------------------------------------------
 sns.set_theme(style="darkgrid")  # Stil für dunkles Design mit Gitter
 
 def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_time=None, standing_hit_rates_over_time=None, show_prone_standing=False):
@@ -221,7 +220,6 @@ def plot_overall_hit_rates(overall_hit_rates_over_time, prone_hit_rates_over_tim
 
     fig.tight_layout()
     st.pyplot(fig)
-
 
 def plot_hit_rates(hit_rates_over_time, hit_rate_prone_over_time=None, hit_rate_standing_over_time=None, show_prone_standing=False, discipline_name=None):
     if not hit_rates_over_time and not (show_prone_standing and hit_rate_prone_over_time) and not (show_prone_standing and hit_rate_standing_over_time):
@@ -380,12 +378,11 @@ def plot_wind_condition_comparison(wind_stats):
     fig.tight_layout()
     st.pyplot(fig)
 
-
-
-
-#######################################################################################
+# --- Main Fuction only for testing issues --------------------------------------------------------------------------------------------------------------
 def main():
     # nur tests hier
+
+
     st.title("Biathlon Statistics")
 
     file_path = os.path.join("JSON", "biathlon_statistics_K_DV_01.json")
@@ -405,7 +402,7 @@ def main():
         hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual = collect_hit_rates(file_path, "Individual")
         plot_hit_rates(hit_rates_over_time_individual, hit_rate_prone_over_time_individual, hit_rate_standing_over_time_individual)
 
-        # schreiben hitrate nur von trainingsmode TNS
+        
         st.write("Hitrate wird geplottet von Training TNS")
         hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS = collect_hit_rates(file_path, training_mode="TNS")
         plot_hit_rates(hit_rates_over_time_TNS, hit_rate_prone_over_time_TNS, hit_rate_standing_over_time_TNS)

@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 import os
 
+# functions for the Input Page ------------------------------------------------------------------------------
 
 def biathlon_stats_komplex(date, mode, training_mode):
     
@@ -73,13 +74,7 @@ def biathlon_stats_komplex(date, mode, training_mode):
             standing_hit_rate = (standing_hits / (shots / 2)) * 100
             total_hit_rate = (total_hits / shots) * 100
 
-            #st.write(f"**Results for {discipline} (Instance {idx + 1}):**")
-            #st.write("Total hit rate:", round(total_hit_rate, 2), "%")
-            #st.write("Prone hit rate:", round(prone_hit_rate, 2), "%")
-            #st.write("Standing hit rate:", round(standing_hit_rate, 2), "%")
             
-            
-
             # Einzelne Disziplinstatistiken speichern
             complete_statistics.append({
                 "Discipline": discipline,
@@ -170,7 +165,6 @@ def biathlon_stats_komplex(date, mode, training_mode):
                 json.dump(statistics, file, indent=4)
 
             st.success("Hit rate and data were saved successfully.")
-
 
 
 def biathlon_stats_gls(date, mode, training_mode):

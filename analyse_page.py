@@ -3,7 +3,7 @@ import streamlit as st
 import os
 from datetime import datetime
 
-# Den jetzigen Benutzer auslesen oder initialisieren
+# Read out or initialise the current user
 if 'user' not in st.session_state:
     st.session_state['user'] = {'first_name': 'Default', 'last_name': 'User'}  # Beispielwerte, anpassen wie nötig
 
@@ -111,7 +111,7 @@ def calculate_average(hit_rates):
         return sum(rate for _, rate in hit_rates) / len(hit_rates) if hit_rates else 0
 
 
-# Hauptfunktion
+# Main function
 def main(user):
     st.title(f"Hit Rate Analysis for {user['first_name']} {user['last_name']}")
 
@@ -155,5 +155,3 @@ def main(user):
 
 if __name__ == "__main__":
     main(user)
-
-    ##########################test

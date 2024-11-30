@@ -29,8 +29,7 @@ def load_trainer_team(trainer_name):
     except FileNotFoundError:
         return []
 
-
-
+# coulour for hit rate visualization on profile page
 def get_color_for_hit_rate(hit_rate):
     if hit_rate < 0.5:
         red = 255
@@ -44,6 +43,7 @@ def get_color_for_hit_rate(hit_rate):
         green = max(green, 128)  # Ensure green is at least 128 for 100%
     return f"rgb({red}, {green}, 0)"
 
+# Show the trainer's team
 def show_team():
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
         for athlete in st.session_state.trainer_team:
@@ -95,6 +95,7 @@ def show_team():
     else:
         st.write("No athletes in your team yet.")
 
+# Show the statistics of the trainer's team
 def show_stats():
     if 'trainer_team' in st.session_state and st.session_state.trainer_team:
         athlete_names = [f"{athlete['first_name']} {athlete['last_name']}" for athlete in st.session_state.trainer_team]
@@ -152,7 +153,8 @@ def show_stats():
             st.write("No stats available for the selected athlete.")
     else:
         st.write("No athletes in your team yet.")
-        
+
+# Manage the trainer's team      
 def team_management(trainer_name):
     # Load all athletes
     athletes = load_athletes()
@@ -192,20 +194,7 @@ def team_management(trainer_name):
         st.session_state.user = None
         st.rerun()
 
-# Example users.json content:
-# [
-#     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
-#     {"first_name": "Jane", "last_name": "Smith", "image_url": "path/to/jane_smith_image.png"},
-#     {"first_name": "Emily", "last_name": "Jones", "image_url": "path/to/emily_jones_image.png"},
-#     {"first_name": "Trainer", "last_name": "Huber", "image_url": "path/to/trainer_huber_image.png"}
-# ]
-
-# Example trainer_huber_team.json content:
-# [
-#     {"first_name": "John", "last_name": "Doe", "image_url": "path/to/john_doe_image.png"},
-#     {"first_name": "Jane", "last_name": "Smith", "image_url": "path/to/jane_smith_image.png"}
-# ]
-
+# Main function for the trainer app
 def trainer_app():
     st.title("Welcome, Trainer " + st.session_state.user['last_name'] + "!")
 
