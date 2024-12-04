@@ -1,6 +1,8 @@
 # Biathlon-Shot-Tracker
 Dokumentation Shooting Data Biathlon
 
+The Biathlon Shot Tracker is a web application designed to help biathletes and coaches analyze shooting performance over time. It allows users to log detailed shooting data, including hit rates for prone and standing positions, under various conditions such as wind or competition type. The app visualizes performance trends with graphs and provides overall statistics, helping athletes identify strengths, weaknesses, and areas for improvement. Additionally, it offers customizable filters for tailored analyses, making it a versatile tool for performance monitoring and optimization.
+
 ## Voraussetzungen
 
 - **Python 3.7 oder höher** muss installiert sein. [Python herunterladen](https://www.python.org/downloads/)
